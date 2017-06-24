@@ -2,7 +2,6 @@ package com.company;
 import org.omg.CORBA.*;
 import org.omg.CORBA.Object;
 import sun.net.www.http.HttpClient;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
