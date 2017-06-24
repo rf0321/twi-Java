@@ -1,7 +1,10 @@
 package com.company;
-import com.sun.xml.internal.ws.commons.xmlutil.Converter;
+import org.omg.CORBA.*;
+import org.omg.CORBA.Object;
+import sun.net.www.http.HttpClient;
 
-import javax.xml.crypto.Data;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -11,6 +14,7 @@ public class UpdateJson  {
     private String ACCESSTOKEN;
     private String ACCESSSECRET;
 
+    HttpClient httpClient;
     static final String TwitterApiBaseUrl = "https://api.twitter.com/1.1/";
     public Timestamp timestamp;
 
@@ -33,13 +37,14 @@ public class UpdateJson  {
             return;
         }
     }
-  public String tweet(String Text) {
+  public String tweet(String Text)throws UnsupportedEncodingException {
       Map<String,String>data=new Hashtable<>();
       data.put("status",Text);
       data.put("trim_user","1");
-      return SendRequest("statuses/update.json", data);
+      String formData="";
+      return SendRequest("statuses/update.json", data,formData);
      }
-  public String SendRequest(String URL,Map<String,String>data){
+  public String SendRequest(String URL,Map<String,String>data,String Formdata)throws UnsupportedEncodingException {
       String full_url=TwitterApiBaseUrl+URL;
       TwiAPIGetToken twiAPIGetToken=new TwiAPIGetToken();
 
@@ -51,12 +56,35 @@ public class UpdateJson  {
       data.put("oauth_version", "1.0");
       data.put("oauth_signature", GenerateSignature(full_url, data));
 
+      String oAuthHeader=GenerateOAuthHeader(data);
+      String key="oauth_";
+      String EncodeFormat="ASCII";
+
+      String formData=URLEncoder.encode(key,EncodeFormat);
       return SendRequest(full_url,data,formData);
   }
-  String GenerateSignature(String URL,Map<String,String>data){
-      String signature=String.join("&" );
-      signature.format("{0}={1}");
-      
+  String GenerateSignature(String URL,Map<String,String>data)throws UnsupportedEncodingException{
+      String signature=String.join("&" ,String.format("{0}={1}",URL));
+      signature.format("{0}&{1}&{2}","POST",URL);
+      String key="oauth_";
+      String EncodeFormat="ASCII";
+      return URLEncoder.encode(key,EncodeFormat);
+  }
+  String GenerateOAuthHeader(Map<String,String> data){
+    data.put("{0}=\"{1}\"","");
+    return "OAuth"+data+String.join(",");
+  }
+  public String SendRequest(String full_url,String oAuthHeader,String formData)throws UnsupportedEncodingException{
+
+      try{
+          
+      }
+      catch (Exception e){
+        e.printStackTrace();
+
+      }
+      String respone;
+      return GenerateNonce();
   }
     static String GenerateNonce(){
         Random rnd =new Random();
