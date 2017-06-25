@@ -86,8 +86,8 @@ public class UpdateJsons {
         try {
             String key = String.join("&", CONSUMER_SECRET, ACCESS_TOKEN_SECRET);
             // シークレットを合わせてSHA1の秘密鍵を作る
-            SecretKeySpec sk = new SecretKeySpec(key.getBytes(StandardCharsets.US_ASCII), "HmacSHA1");
-            mac = Mac.getInstance("HmacSHA1");
+            SecretKeySpec sk = new SecretKeySpec(key.getBytes(StandardCharsets.US_ASCII), "HMAC-SHA1");
+            mac = Mac.getInstance("HMAC-SHA1");
             mac.init(sk);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) { // おそらく出ないであろう例外
         }
