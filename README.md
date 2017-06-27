@@ -15,4 +15,16 @@ Simple post method library for TwitterAPI ver java
 ```    
 # LICENCE
 MIT
-    
+
+※Japanese
+
+# Twi-Java
+シンプルなTwitterポスト機能だけを作ったミニライブラリです。
+# 使い方
+### 1.リポジトリをクローンします
+### 2.ApacheのHttpComponentをJavaプロジェクト内にライブラリとして追加します
+### 3.ツイートする場合は上の用なコードを書いてください。
+# ライセンス
+MITライセンスなので使用、改変ともに自由です。
+
+    
