@@ -1,4 +1,5 @@
 [![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ItinoseSan/Twi-Java/blob/master/TwitterAPI/LICENCE)
+[![](https://img.shields.io/travis/ItinoseSan/Twi-Java.svg?style=flat-square)](https://travis-ci.org/ItinoseSan/Twi-Java)
 
 # Twi-Java
 Simple post method library for TwitterAPI ver java
