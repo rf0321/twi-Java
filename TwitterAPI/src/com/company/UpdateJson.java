@@ -34,6 +34,15 @@ public class UpdateJson {
         this.ACCESS_TOKEN = ACCESS_TOKEN;
         this.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET;
     }
+    public String getUserTimeline(String Path,Map<String,String>params) {
+
+    }
+    public static Map<String,String>dataConverToMap(Map<String,String>APIparams) {
+        Map<String, String> parameters = new HashMap<>();
+        Map<String,String>APIParams=new HashMap<>();
+
+        return parameters;
+    }
     public String tweet(String text) throws IOException {
         Map<String, String> data = new TreeMap<>();
         data.put("status", text);
