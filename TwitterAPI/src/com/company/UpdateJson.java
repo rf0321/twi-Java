@@ -1,8 +1,5 @@
 package com.company;
 
-import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
-import com.sun.org.apache.xml.internal.security.keys.content.keyvalues.KeyValueContent;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.auth.Credentials;
 import org.apache.http.NameValuePair;
