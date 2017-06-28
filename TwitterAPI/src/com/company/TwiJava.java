@@ -72,7 +72,7 @@ public class TwiJava{
     public String generateTLsignature(String url,String methodname,Map<String,String>data){
        Mac m=null;
        try{
-         String sha1SecretKey=String.join("&",CONSUMER_KEY,CONSUMER_SECRET);
+         String sha1SecretKey=String.join("&",CONSUMER_SECRET,ACCESS_TOKEN_SECRET);
          SecretKeySpec secretKeySpec=new SecretKeySpec(sha1SecretKey.getBytes(StandardCharsets.US_ASCII),"HmacSHA1");
            m = Mac.getInstance("HmacSHA1");
            m.init(secretKeySpec);
