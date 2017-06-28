@@ -1,5 +1,8 @@
 package com.company;
 
+import com.sun.org.apache.xml.internal.security.keys.content.KeyValue;
+import com.sun.org.apache.xml.internal.security.keys.content.keyvalues.KeyValueContent;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.auth.Credentials;
 import org.apache.http.NameValuePair;
@@ -36,45 +39,53 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class UpdateJson {
+
+public class TwiJava{
     private final String CONSUMER_KEY;
     private final String CONSUMER_SECRET;
     private final String ACCESS_TOKEN;
     private final String ACCESS_TOKEN_SECRET;
 
     private static final String BASE_URL = "https://api.twitter.com/1.1/";
+    private static final String TIMELINE_URL="statuses/home_timeline.json";
 
-    public UpdateJson(String CONSUMER_KEY, String CONSUMER_SECRET, String ACCESS_TOKEN, String ACCESS_TOKEN_SECRET) {
+    public TwiJava(String CONSUMER_KEY, String CONSUMER_SECRET, String ACCESS_TOKEN, String ACCESS_TOKEN_SECRET) {
         this.CONSUMER_KEY = CONSUMER_KEY;
         this.CONSUMER_SECRET = CONSUMER_SECRET;
         this.ACCESS_TOKEN = ACCESS_TOKEN;
         this.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET;
     }
-    public void gethomeTimeline()throws IOException {
-        DefaultHttpClient client=new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(BASE_URL+TIMELINE_URL);
-        Map<String,String>AuthnicationData=new TreeMap<>();
-        AuthnicationData.put(CONSUMER_KEY,ACCESS_TOKEN);
-        AuthScope scope = new AuthScope("twitter.com", 80);
-        client.getCredentialsProvider();
-        try {
-            HttpResponse httpResponse = client.execute(httpGet);
-            BufferedReader bufedReader = new BufferedReader(new InputStreamReader(httpResponse
-                    .getEntity().getContent()));
-            System.out.println(httpResponse.getStatusLine());
-            for (String line; (line = bufedReader.readLine()) != null;) {
-                System.out.println(line);
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        } catch (RuntimeException e) {
-            httpGet.abort();
-            e.printStackTrace();
+    public String gethomeTimeline()throws IOException {
+       String url=BASE_URL+TIMELINE_URL;
+       Map<String,String>header=createHeader();
+       Map<String,String>AuthticationMerged=new TreeMap<>(header);
+       Map<String,String>timeLineData=new TreeMap<>();
+       AuthticationMerged.putAll(timeLineData);
+       header.put("oauth_signature",generateTLsignature(url,"GET",AuthticationMerged));
+        String headerString = "OAuth " + header.entrySet().stream()
+                .map(e -> String.format("%s=\"%s\"", urlEncode(e.getKey()), urlEncode(e.getValue())))
+                .collect(Collectors.joining(", "));
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet get = new HttpGet(url);
+            get.setHeader(HttpHeaders.AUTHORIZATION, headerString);
+            // レスポンスボディを勝手に文字列にして返してくれるおまじない
+            return client.execute(get, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
         }
+    }
+    public String generateTLsignature(String url,String methodname,Map<String,String>data){
+       Mac m=null;
+       try{
+         String sha1SecretKey=String.join("&",CONSUMER_KEY,CONSUMER_SECRET);
+         SecretKeySpec secretKeySpec=new SecretKeySpec(sha1SecretKey.getBytes(StandardCharsets.US_ASCII),"HmacSHA1");
+           m = Mac.getInstance("HmacSHA1");
+           m.init(secretKeySpec);
+       }
+       catch (Exception e){
+       }
+        String signature = String.join("&",
+                methodname, urlEncode(url), urlEncode(formUrlEncodedContent(data)));
+        return Base64.getEncoder().encodeToString(
+                m.doFinal(signature.getBytes(StandardCharsets.US_ASCII)));
     }
     public String tweet(String text) throws IOException {
         Map<String, String> data = new TreeMap<>();
@@ -82,7 +93,6 @@ public class UpdateJson {
         data.put("trim_user", "1");
         return SendRequest("statuses/update.json", data);
     }
-
     public String SendRequest(String url, Map<String, String> data) throws IOException {
         String fullUrl = BASE_URL + url;
         Map<String, String> header = createHeader();
@@ -137,14 +147,12 @@ public class UpdateJson {
         return Base64.getEncoder().encodeToString(
                 mac.doFinal(signature.getBytes(StandardCharsets.US_ASCII)));
     }
-
     private String formUrlEncodedContent(Map<String, String> data) {
         // Map<K, V>はEntry<K, V>になりkey=value&key=...の形で文字列に変換される
         return data.entrySet().stream()
                 .map(e -> urlEncode(e.getKey()) + "=" + urlEncode(e.getValue()))
                 .collect(Collectors.joining("&"));
     }
-
     private String urlEncode(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8");
@@ -152,7 +160,6 @@ public class UpdateJson {
             return s;
         }
     }
-
     private String GenerateNonce() {
         Random rnd = new Random();
         return String.valueOf(123400 + rnd.nextInt(9999999 - 123400));
