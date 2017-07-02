@@ -1,4 +1,4 @@
-package com.company;
+package TwiJava;
 // Apache http component
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.http.HttpHeaders;
@@ -24,14 +24,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class TwiJava{
+public class TwiJava{ //後で一度このまま試す
     private final String CONSUMER_KEY;
     private final String CONSUMER_SECRET;
     private final String ACCESS_TOKEN;
     private final String ACCESS_TOKEN_SECRET;
 
-    private static final String BASE_URL = "https://api.twitter.com/1.1/";
+    private static final String API_BASE_URL = "https://api.twitter.com/1.1/";
     private static final String TIMELINE_URL="statuses/home_timeline.json";
+    private static final String USER_TIMELINE_URL="statuses/user_timeline.json";
+    private static final String USER_UPDATESTATUS_URL="statuses/update.json";
 
     public TwiJava(String CONSUMER_KEY, String CONSUMER_SECRET, String ACCESS_TOKEN, String ACCESS_TOKEN_SECRET) {
         this.CONSUMER_KEY = CONSUMER_KEY;
@@ -39,14 +41,14 @@ public class TwiJava{
         this.ACCESS_TOKEN = ACCESS_TOKEN;
         this.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET;
     }
-    　public String GetUserTimeLine(String tweetCounter)throws IOException{
+    public String GetUserTimeLine(String tweetCounter)throws IOException{
         Map<String,String>userTimeLineData=new TreeMap<>();
         userTimeLineData.put("count",tweetCounter);
         userTimeLineData.put("trim_user","1");
 
         return getRequest(USER_TIMELINE_URL,"GET",userTimeLineData);
     }
-      public String GetHomeTimeLine(String tweetCounter) throws IOException{
+    public String GetHomeTimeLine(String tweetCounter) throws IOException{
         Map<String,String>timeLineData=new TreeMap<>();
         timeLineData.put("count",tweetCounter);
         timeLineData.put("trim_user","1");
@@ -54,7 +56,7 @@ public class TwiJava{
         return getRequest(TIMELINE_URL,"GET",timeLineData);
     }
     public String getRequest(String url,String method,Map<String,String>timeLineData)throws IOException {
-        String fullurl=BASE_URL+url;
+        String fullurl=API_BASE_URL+url;
         Map<String,String>header=createHeader();
         Map<String,String>AuthticationMerged=new TreeMap<>(header);
         AuthticationMerged.putAll(timeLineData);
@@ -65,12 +67,12 @@ public class TwiJava{
                 .map(e -> String.format("%s=\"%s\"", urlEncode(e.getKey()), urlEncode(e.getValue())))
                 .collect(Collectors.joining(", "));
 
-        fullurl += "?" + formUrlEncodedContent(timeLineData); //クエリストリングをくっつける
+        fullurl += "?" + formUrlEncodedContent(timeLineData);
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpUriRequest request;
             request=new HttpGet(fullurl);
-            System.out.println("RequestType:"+request);
+            System.out.println(request);
             request.setHeader(HttpHeaders.AUTHORIZATION, headerString);
 
             return client.execute(request, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
@@ -92,10 +94,10 @@ public class TwiJava{
         Map<String, String> data = new TreeMap<>();
         data.put("status", text);
         data.put("trim_user", "1");
-        return SendRequest("statuses/update.json", data);
+        return postRequest(USER_UPDATESTATUS_URL, data);
     }
-    public String SendRequest(String url, Map<String, String> data) throws IOException {
-        String fullUrl = BASE_URL + url;
+    public String postRequest(String url, Map<String, String> data) throws IOException {
+        String fullUrl = API_BASE_URL + url;
         Map<String, String> header = createHeader();
         Map<String, String> merged = new TreeMap<>(header);
         merged.putAll(data);
@@ -117,7 +119,6 @@ public class TwiJava{
             return client.execute(post, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
         }
     }
-
     private Map<String, String> createHeader() {
         // TreeMapはcompareToに基づく順序付けMap
         Map<String, String> data = new TreeMap<>();
@@ -130,7 +131,6 @@ public class TwiJava{
         data.put("oauth_version", "1.0");
         return data;
     }
-
     private String generateSignature(String url, String method, Map<String, String> data) {
         Mac mac = null;
         try {
