@@ -52,24 +52,37 @@ public class TwiJava{
         this.ACCESS_TOKEN = ACCESS_TOKEN;
         this.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET;
     }
-    public String gethomeTimeline()throws IOException {
-       String url=BASE_URL+TIMELINE_URL;
-       Map<String,String>header=createHeader();
-       Map<String,String>AuthticationMerged=new TreeMap<>(header);
-       Map<String,String>timeLineData=new TreeMap<>();
-       AuthticationMerged.putAll(timeLineData);
-       header.put("oauth_signature",generateTLsignature(url,"GET",AuthticationMerged));
+      public String GetHomeTimeLine(String tweetCounter) throws IOException{
+        Map<String,String>timeLineData=new TreeMap<>();
+        timeLineData.put("count",tweetCounter);
+        timeLineData.put("trim_user","1");
+
+        return getRequest(TIMELINE_URL,"GET",timeLineData);
+    }
+    public String getRequest(String url,String method,Map<String,String>timeLineData)throws IOException {
+        String fullurl=BASE_URL+url;
+        Map<String,String>header=createHeader();
+        Map<String,String>AuthticationMerged=new TreeMap<>(header);
+        AuthticationMerged.putAll(timeLineData);
+        String signature = String.join("&",
+                method, urlEncode(fullurl), urlEncode(formUrlEncodedContent(AuthticationMerged)));
+        header.put("oauth_signature",generateTLsignature(signature));
         String headerString = "OAuth " + header.entrySet().stream()
                 .map(e -> String.format("%s=\"%s\"", urlEncode(e.getKey()), urlEncode(e.getValue())))
                 .collect(Collectors.joining(", "));
+
+        fullurl += "?" + formUrlEncodedContent(timeLineData);
+
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpGet get = new HttpGet(url);
-            get.setHeader(HttpHeaders.AUTHORIZATION, headerString);
-            // レスポンスボディを勝手に文字列にして返してくれるおまじない
-            return client.execute(get, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
+            HttpUriRequest request;
+            request=new HttpGet(fullurl);
+            System.out.println("RequestType:"+request);
+            request.setHeader(HttpHeaders.AUTHORIZATION, headerString);
+
+            return client.execute(request, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
         }
     }
-    public String generateTLsignature(String url,String methodname,Map<String,String>data){
+    public String generateTLsignature(String signature){
        Mac m=null;
        try{
          String sha1SecretKey=String.join("&",CONSUMER_SECRET,ACCESS_TOKEN_SECRET);
@@ -79,10 +92,7 @@ public class TwiJava{
        }
        catch (Exception e){
        }
-        String signature = String.join("&",
-                methodname, urlEncode(url), urlEncode(formUrlEncodedContent(data)));
-        return Base64.getEncoder().encodeToString(
-                m.doFinal(signature.getBytes(StandardCharsets.US_ASCII)));
+        return Base64.getEncoder().encodeToString(m.doFinal(signature.getBytes(StandardCharsets.US_ASCII))); // Convert to Base64
     }
     public String tweet(String text) throws IOException {
         Map<String, String> data = new TreeMap<>();
