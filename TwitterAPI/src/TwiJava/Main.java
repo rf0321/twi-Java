@@ -1,4 +1,4 @@
-package com.company;
+package TwiJava;
 
 //Using Example of this library
 import java.io.IOException;
