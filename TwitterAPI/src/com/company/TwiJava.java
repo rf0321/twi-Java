@@ -65,7 +65,7 @@ public class TwiJava{
                 .map(e -> String.format("%s=\"%s\"", urlEncode(e.getKey()), urlEncode(e.getValue())))
                 .collect(Collectors.joining(", "));
 
-        fullurl += "?" + formUrlEncodedContent(timeLineData);
+        fullurl += "?" + formUrlEncodedContent(timeLineData); //クエリストリングをくっつける
 
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpUriRequest request;
