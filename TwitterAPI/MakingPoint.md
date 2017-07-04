@@ -1,8 +1,8 @@
 This opensourse made by skht777 and ItinoseSan
 
 # skht777
-#### Tweet function
+#### Tweet 
 #### Parse Json
 # ItinoseSan
-#### GetHomeTimeLine,UserTimeLine function
+#### GetHomeTimeLine,UserTimeLine 
 #### Basic Design
