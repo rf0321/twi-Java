@@ -13,7 +13,15 @@ Simple post method library for TwitterAPI ver java
         UpdateJson updateJson = new UpdateJson("ConsumerKey", "ConsumerSecret","AccessToken", "AccessTokenSecret");
         System.out.println(updateJson.tweet("Hello World from Twi-Java"));
     }
-```    
+```  
+#### GetUserTimeline
+```Java
+   System.out.println(twitter.GetUserTimeLine("100")); //String is tweet count 
+```
+#### GetHomeTimeline
+```Java
+  System.out.println(twitter.GetUserTimeLine("100")); 
+```
 # LICENCE
 MIT
 
@@ -24,7 +32,7 @@ MIT
 # 使い方
 ### 1.リポジトリをクローンします
 ### 2.ApacheのHttpComponentをJavaプロジェクト内にライブラリとして追加します
-### 3.ツイートする場合は上の用なコードを書いてください。
+### 3.使用する場合は上の用なコードを書いてください。
 # ライセンス
 MITライセンスなので使用、改変ともに自由です。
 
