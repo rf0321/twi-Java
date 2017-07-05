@@ -10,8 +10,8 @@ Simple post method library for TwitterAPI ver java
 #### Tweet
 ```Java
  public static void main(String[] args) throws IOException {
-        UpdateJson updateJson = new UpdateJson("ConsumerKey", "ConsumerSecret","AccessToken", "AccessTokenSecret");
-        System.out.println(updateJson.tweet("Hello World from Twi-Java"));
+        TwiJava twiJava = new TwiJava("ConsumerKey", "ConsumerSecret","AccessToken", "AccessTokenSecret");
+        System.out.println(twiJava.tweet("Hello World from Twi-Java"));
     }
 ```  
 #### GetUserTimeline
