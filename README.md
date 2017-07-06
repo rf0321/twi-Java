@@ -16,11 +16,11 @@ Library for TwitterAPI ver java
 ```  
 #### GetUserTimeline
 ```Java
-   System.out.println(twitter.GetUserTimeLine("100")); //String is tweet count 
+   System.out.println(twiJava.GetUserTimeLine("100")); //String is tweet count 
 ```
 #### GetHomeTimeline
 ```Java
-  System.out.println(twitter.GetUserTimeLine("100")); 
+  System.out.println(twiJava.GetUserTimeLine("100")); 
 ```
 # LICENCE
 MIT
