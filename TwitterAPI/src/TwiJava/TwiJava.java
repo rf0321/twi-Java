@@ -41,14 +41,14 @@ public class TwiJava{ //後で一度このまま試す
         this.ACCESS_TOKEN = ACCESS_TOKEN;
         this.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET;
     }
-    public String GetUserTimeLine(String tweetCounter)throws IOException{
+    public String getUserTimeLine(String tweetCounter)throws IOException{
         Map<String,String>userTimeLineData=new TreeMap<>();
         userTimeLineData.put("count",tweetCounter);
         userTimeLineData.put("trim_user","1");
 
         return getRequest(USER_TIMELINE_URL,"GET",userTimeLineData);
     }
-    public String GetHomeTimeLine(String tweetCounter) throws IOException{
+    public String getHomeTimeLine(String tweetCounter) throws IOException{
         Map<String,String>timeLineData=new TreeMap<>();
         timeLineData.put("count",tweetCounter);
         timeLineData.put("trim_user","1");
