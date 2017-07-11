@@ -1,4 +1,4 @@
-import TwiJavaMainFunction.TwiJava;
+import twiJavaMainFunction.TwiJava;
 import java.io.IOException;
 
 public class Main {
