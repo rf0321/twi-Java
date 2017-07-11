@@ -20,11 +20,11 @@ dependencies {
         System.out.println(twiJava.tweet("Hello World from Twi-Java"));
     }
 ```  
-#### GetUserTimeline
+#### Get UserTimeline
 ```Java
    System.out.println(twiJava.getUserTimeLine("100")); //String is tweet count 
 ```
-#### GetHomeTimeline
+#### Get HomeTimeline
 ```Java
   System.out.println(twiJava.getUserTimeLine("100")); 
 ```
