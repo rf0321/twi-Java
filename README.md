@@ -2,7 +2,7 @@
 [![](https://img.shields.io/travis/ItinoseSan/Twi-Java.svg?style=flat-square)](https://travis-ci.org/ItinoseSan/Twi-Java)
 
 # Twi-Java
-Library for TwitterAPI ver java.This is one of the my practice to use WebAPI without famouse library
+This is class-library when you handle TwitterAPI
 # How to Use
 ### 1.Clone this repository.
 ### 2.Apache HttpComponent add as a library your Java application project.
