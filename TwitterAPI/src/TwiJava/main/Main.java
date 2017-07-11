@@ -1,4 +1,5 @@
-package TwiJava;
+package Twijava;
+import TwiJava.Classlib.TwiJava;
 
 //Using Example of this library
 import java.io.IOException;
