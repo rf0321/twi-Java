@@ -1,4 +1,4 @@
-package TwiJavaMainFunction;
+package twiJavaMainFunction;
 
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
