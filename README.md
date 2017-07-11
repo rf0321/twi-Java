@@ -9,7 +9,7 @@ Library for TwitterAPI ver java.This is one of the my practice to use WebAPI wit
 ```build.gradle
 dependencies {
     compile 'org.apache.httpcomponents:httpclient:4.5.3'
-    #You should use new library version
+    //You should use new library version
 }
 ```
 ### 3.Please write this code when you want to tweet on Java application.
