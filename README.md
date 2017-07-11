@@ -16,11 +16,11 @@ Library for TwitterAPI ver java.This is one of the my practice to use WebAPI wit
 ```  
 #### GetUserTimeline
 ```Java
-   System.out.println(twiJava.GetUserTimeLine("100")); //String is tweet count 
+   System.out.println(twiJava.getUserTimeLine("100")); //String is tweet count 
 ```
 #### GetHomeTimeline
 ```Java
-  System.out.println(twiJava.GetUserTimeLine("100")); 
+  System.out.println(twiJava.getUserTimeLine("100")); 
 ```
 # LICENCE
 MIT
