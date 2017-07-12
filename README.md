@@ -34,7 +34,7 @@ MIT
 ※Japanese
 
 # Twi-Java
-Javaで作ったTwitterAPIを使うライブラリです。
+Javaで作ったTwitterAPIを使うライブラリです。ビルドツールとしてGradleを導入してみました。
 # 使い方
 ### 1.リポジトリをクローンします。
 ### 2.ApacheのHttpComponentをJavaプロジェクト内にライブラリとして追加します。
