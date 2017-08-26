@@ -12,7 +12,7 @@ dependencies {
     //You should use new library version
 }
 ```
-### 3.Please write this code when you want to tweet on Java application.
+### 3.Please write this code when you want to use twitterAPI on Java application.
 #### Tweet
 ```Java
  public static void main(String[] args) throws IOException {
