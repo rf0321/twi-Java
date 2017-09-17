@@ -2,7 +2,8 @@
 This is class-library when you handle TwitterAPI that build on Gradle
 # Build and LICENCE
 Build status:[![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=master)](https://travis-ci.org/ItinoseSan/Twi-Java) LICENCE:[![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ItinoseSan/Twi-Java/blob/master/TwitterAPI/LICENCE)
-
+# The content relations pull request
+I welcome it.but if you pullrequest to this repository,you should write description of pullrequest content in English.
 # How to Use
 ### 1.Clone this repository.
 ### 2.Apache HttpComponent add as a library your Java application project.
