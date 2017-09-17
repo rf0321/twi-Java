@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2aef5550-d56b-430c-9cfe-4203436fc2e0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="2aef5550-d56b-430c-9cfe-4203436fc2e0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -1066,12 +1063,12 @@
       <workItem from="1502686585345" duration="21000" />
       <workItem from="1503288188632" duration="33000" />
       <workItem from="1504167643753" duration="880000" />
-      <workItem from="1505649574043" duration="1088000" />
+      <workItem from="1505649574043" duration="1378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18975000" />
+    <option name="totallyTimeSpent" value="19265000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="90" y="66" width="1258" height="748" extended-state="0" />
