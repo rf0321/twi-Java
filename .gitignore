@@ -1,0 +1,8 @@
+
+target/
+build/
+.gradle/
+gradle.properties
+
+#Package Files
+*.jar
