@@ -28,8 +28,6 @@ dependencies {
 ```Java
   System.out.println(twiJava.getUserTimeLine("100")); 
 ```
-# LICENCE
-MIT
 
 ※Japanese
 
