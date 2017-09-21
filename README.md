@@ -1,7 +1,7 @@
 # Twi-Java
 This is class-library when you handle TwitterAPI that build on Gradle
 # Build and LICENCE
-Build status:[![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=master)](https://travis-ci.org/ItinoseSan/Twi-Java) LICENCE:[![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat))](https://github.com/ItinoseSan/Twi-Java/blob/master/TwitterAPI/LICENCE)
+Build status:[![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=master)](https://travis-ci.org/ItinoseSan/Twi-Java) LICENCE:[![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/ItinoseSan/Twi-Java/blob/master/TwitterAPI/LICENCE)
 # The content relations pull request
 I welcome it.but if you pullrequest to this repository,you should write description of pullrequest content in English.
 # How to Use
