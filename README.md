@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/languauge-java%208-orange.svg) [![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=master)](https://travis-ci.org/ItinoseSan/Twi-Java)[![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/ItinoseSan/Twi-Java/blob/master/TwitterAPI/LICENCE)
+![](https://img.shields.io/badge/languauge-java%208-orange.svg) [![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=master)](https://travis-ci.org/ItinoseSan/Twi-Java) [![](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/ItinoseSan/Twi-Java/blob/master/TwitterAPI/LICENCE)
 
 # Twi-Java
 This is class-library when you handle TwitterAPI that build on Gradle
