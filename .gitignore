@@ -2,7 +2,7 @@
 target/
 build/
 .gradle/
-gradle.properties
+!gradle-wrapper.jar
 
 #Package Files
 *.jar
