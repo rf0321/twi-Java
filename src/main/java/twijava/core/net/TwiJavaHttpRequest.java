@@ -3,7 +3,9 @@ package twijava.core.net;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -44,6 +46,30 @@ public class TwiJavaHttpRequest {
             return client.execute(post, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
         }
     }
+
+    public String get(String url,Map<String,String>timeLineData,String ck,String ac,String cks,String ats)throws IOException {
+        String fullurl=TWITTERAPI_BASEURL+url;
+        Map<String,String>header=createHeader(ck,ac);
+        Map<String,String>AuthticationMerged=new TreeMap<>(header);
+        AuthticationMerged.putAll(timeLineData);
+
+        header.put("oauth_signature",api.generateSignature(fullurl, "POST", AuthticationMerged,cks,ats));
+        String headerString = "OAuth " + header.entrySet().stream()
+                .map(e -> String.format("%s=\"%s\"", api.urlEncode(e.getKey()), api.urlEncode(e.getValue())))
+                .collect(Collectors.joining(", "));
+
+        fullurl += "?" + api.formUrlEncodedContent(timeLineData);
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpUriRequest request;
+            request=new HttpGet(fullurl);
+            System.out.println(request);
+            request.setHeader(HttpHeaders.AUTHORIZATION, headerString);
+
+            return client.execute(request, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
+        }
+    }
+
     private Map<String, String> createHeader(String ck,String ac) {
         // TreeMapはcompareToに基づく順序付けMap
 
