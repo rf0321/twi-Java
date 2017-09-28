@@ -1,4 +1,4 @@
-package twijava.core.net;
+package twijava.net;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -12,9 +12,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
 /**
  * Web request support methods
- * @version 0.0.1
+ *
  */
 public class APIRequestSupporter{
 
@@ -27,7 +28,7 @@ public class APIRequestSupporter{
        }
    }
 
-   public String generateNonce(){
+   public String generateNonce(){ //使い捨て暗号ぶっちゃけテキトウな文字でもいい
        Random rnd = new Random();
        return String.valueOf(123400 + rnd.nextInt(9999999 - 123400));
    }

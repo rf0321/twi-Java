@@ -1,11 +1,15 @@
 package twijava;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import twijava.core.net.TwiJavaHttpRequest;
-
-import java.io.IOException;
+import twijava.net.TwiJavaHttpRequest;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * 認証にいるキー
+ * @param consumerKey
+ * @param consumerSecretKey
+ * @param accessToken
+ * @param accessTokenSecret
+ */
 public class TwiJava{
 
     private String consumerKey;
@@ -50,7 +54,7 @@ public class TwiJava{
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
     }
-    public String tweet(String text) throws IOException{
+    public String tweet(String text) throws Exception{
        Map<String,String>data=new TreeMap<>();
        data.put("status",text);
        data.put("trim_user","1");
@@ -58,10 +62,10 @@ public class TwiJava{
        if(text.length()>140){
            System.out.println("You cannot tweet because the charlength 140 over");
        }
-       return httpRequest.post(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
+       return httpRequest.testPost(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
     }
-    public String getHomeTimeLine(String counter) throws IOException{
+   /* public String getHomeTimeLine(String counter) throws IOException{
        Map<String,String>hometimelinedata=new TreeMap<>();
        hometimelinedata.put("count",counter);
        hometimelinedata.put("trim_user","1");
@@ -82,5 +86,5 @@ public class TwiJava{
         }
         return httpRequest.get(USER_TIMELINE_URL, usertimelinedata,consumerKey,accessToken
                 ,consumersecretKey,accessTokenSecret);
-    }
+    }*/
 }
