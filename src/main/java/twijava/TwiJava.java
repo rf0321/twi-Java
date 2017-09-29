@@ -2,7 +2,6 @@ package twijava;
 import twijava.net.TwiJavaHttpRequest;
 import java.util.Map;
 import java.util.TreeMap;
-
 /**
  * 認証にいるキー
  * @param consumerKey
@@ -23,7 +22,7 @@ public class TwiJava{
 
     private TwiJavaHttpRequest httpRequest=new TwiJavaHttpRequest();
 
-   public static class TwiJavaToken { //APIトークンの設定クラス
+    public static class TwiJavaToken { //APIトークンの設定クラス
 
         private String ck,cks,at,ats;
 
@@ -46,45 +45,40 @@ public class TwiJava{
         public TwiJava buildTokens(){
             return new TwiJava(ck,cks,at,ats);
         }
-    }
-   private TwiJava(String consumerKey,String consumersecretKey,
+     }
+     private TwiJava(String consumerKey,String consumersecretKey,
                     String accessToken,String accessTokenSecret) {
         this.consumerKey = consumerKey;
         this.consumersecretKey = consumersecretKey;
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
-    }
+     }
     public String tweet(String text) throws Exception{
-       Map<String,String>data=new TreeMap<>();
-       data.put("status",text);
-       data.put("trim_user","1");
+        Map<String,String>data=new TreeMap<>();
+        data.put("status",text);
+        data.put("trim_user","1");
 
-       if(text.length()>140){
-           System.out.println("You cannot tweet because the charlength 140 over");
-       }
-       return httpRequest.testPost(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
-               consumersecretKey,accessTokenSecret);
-    }
-   /* public String getHomeTimeLine(String counter) throws IOException{
-       Map<String,String>hometimelinedata=new TreeMap<>();
-       hometimelinedata.put("count",counter);
-       hometimelinedata.put("trim_user","1");
-       if(counter.isEmpty()){
-           System.out.println("could not find home timeline count value");
-           System.exit(0);
-       }
-       return httpRequest.get(TIMELINE_URL,hometimelinedata,consumerKey,accessToken,
-               consumersecretKey,accessTokenSecret);
-    }
-    public String getUserTimeLine(String counter) throws IOException{
-        Map<String, String> usertimelinedata = new TreeMap<>();
-        usertimelinedata.put("count", counter);
-        usertimelinedata.put("trim_user", "1");
-        if (counter.isEmpty()) {
-            System.out.println("could not find user timeline count value");
+        if(text.length()>140){
+            System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
             System.exit(0);
         }
-        return httpRequest.get(USER_TIMELINE_URL, usertimelinedata,consumerKey,accessToken
-                ,consumersecretKey,accessTokenSecret);
-    }*/
+        return httpRequest.post(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
+               consumersecretKey,accessTokenSecret);
+    }
+    public String getHomeTimeline(Integer counter) throws Exception{
+       Map<String,String>hometimelineData=new TreeMap<>();
+       hometimelineData.put("count",counter.toString());
+       hometimelineData.put("trim_user","1");
+
+       return httpRequest.get(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
+               consumersecretKey,accessTokenSecret);
+   }
+    public String getUserTimeline(Integer counter)throws Exception{
+        Map<String,String>usertimelineData=new TreeMap<>();
+        usertimelineData.put("count",counter.toString());
+        usertimelineData.put("trim_user","1");
+
+        return httpRequest.get(USER_TIMELINE_URL,usertimelineData,consumerKey,accessToken,
+                consumersecretKey,accessTokenSecret);
+    }
 }

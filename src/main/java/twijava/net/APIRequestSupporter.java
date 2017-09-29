@@ -1,4 +1,5 @@
 package twijava.net;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -20,11 +21,12 @@ import java.util.stream.Collectors;
 public class APIRequestSupporter{
 
    public String urlEncode(String s){
+       final String UTF_8="UTF-8";
        try{
-           return URLEncoder.encode(s,"UTF-8");
+          return URLEncoder.encode(s,UTF_8).replace("+", "%20");
        }
        catch (UnsupportedEncodingException e){
-           return s;
+           throw new RuntimeException(e);
        }
    }
 
@@ -45,10 +47,12 @@ public class APIRequestSupporter{
         try {
             String key = String.join("&", cks, ats);
             // シークレットを合わせてSHA1の秘密鍵を作る
+
             SecretKeySpec sk = new SecretKeySpec(key.getBytes(StandardCharsets.US_ASCII), "HmacSHA1");
             mac = Mac.getInstance("HmacSHA1");
             mac.init(sk);
-        } catch (NoSuchAlgorithmException | InvalidKeyException e) { // おそらく出ないであろう例外
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) { //おそらく出ないであろう例外
+            e.printStackTrace();
         }
         // 繋げる
         String signature = String.join("&",

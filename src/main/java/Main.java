@@ -9,9 +9,8 @@ public class Main {
                 .setAccessToken("865875664074792960-2OYUu49otbCkov5yKH7K4FD4EbRYLEw")
                 .setAccessTokenSecret("YFUr5FJ9hzc0drAnIsb21pdz8CGel7WjKgYuExvp6K2hj")
                 .buildTokens();
-        System.out.println(twitter.tweet("Hello World from refactored Twitter library"));
-
-
-
+        System.out.println(twitter.tweet("おはよう"));
+        System.out.println(twitter.getHomeTimeline(5));
+        System.out.println(twitter.getUserTimeline(5));
     }
 }
