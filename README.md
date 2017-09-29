@@ -27,11 +27,11 @@ dependencies {
 ```  
 #### Get UserTimeline
 ```Java
-   System.out.println(twiJava.getUserTimeLine(100)); //Integer is tweet count 
+   System.out.println(twitter.getUserTimeLine(100)); //Integer is tweet count 
 ```
 #### Get HomeTimeline
 ```Java
-  System.out.println(twiJava.getUserTimeLine(100)); 
+  System.out.println(twitter.getUserTimeLine(100)); 
 ```
 
 ※Japanese
