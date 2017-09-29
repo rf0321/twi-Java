@@ -23,7 +23,7 @@ dependencies {
                 .setAccessToken("accessToken");
                 .setAccessTokenSecret("accessTokensecret");
                 .buildTokens();
-         twitter.tweet("おはよう");
+         twitter.tweet("Hello TwiJava World");
 ```  
 #### Get UserTimeline
 ```Java
