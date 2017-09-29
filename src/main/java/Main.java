@@ -1,15 +1,16 @@
-import twiJavaEngine.TwiJava;
-import java.io.IOException;
-
+import twijava.TwiJava;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        TwiJava twitter = new TwiJava("ConsumerKey", "ConsumerSecret",
-                "AccessToken", "AccessTokenSecret");
-
-        System.out.println(twitter.tweet("Hello World"));
-        System.out.println(twitter.getHomeTimeLine("5"));
-        System.out.println(twitter.getUserTimeLine("5"));
+    public static void main(String[] args) throws Exception {
+        TwiJava twitter=new TwiJava.TwiJavaToken()
+                .setConsumerKey("consumerkey")
+                .setConsumerSecretKey("consumerkeysecret");
+                .setAccessToken("accessToken");
+                .setAccessTokenSecret("accessTokensecret");
+                .buildTokens();
+        System.out.println(twitter.tweet("おはよう"));
+        System.out.println(twitter.getHomeTimeline(5));
+        System.out.println(twitter.getUserTimeline(5));
     }
 }
