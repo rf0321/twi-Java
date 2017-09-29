@@ -17,10 +17,13 @@ dependencies {
 ### 3.Please write this code when you want to use twitterAPI on Java application.
 #### Tweet
 ```Java
- public static void main(String[] args) throws IOException {
-        TwiJava twiJava = new TwiJava("ConsumerKey", "ConsumerSecret","AccessToken", "AccessTokenSecret");
-        System.out.println(twiJava.tweet("Hello World from Twi-Java"));
-    }
+         TwiJava twitter=new TwiJava.TwiJavaToken()
+                .setConsumerKey("consumerkey")
+                .setConsumerSecretKey("consumerkeysecret");
+                .setAccessToken("accessToken");
+                .setAccessTokenSecret("accessTokensecret");
+                .buildTokens();
+         twitter.tweet("おはよう");
 ```  
 #### Get UserTimeline
 ```Java
