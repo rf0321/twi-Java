@@ -24,11 +24,11 @@ dependencies {
 ```  
 #### Get UserTimeline
 ```Java
-   System.out.println(twiJava.getUserTimeLine("100")); //String is tweet count 
+   System.out.println(twiJava.getUserTimeLine(100)); //Integer is tweet count 
 ```
 #### Get HomeTimeline
 ```Java
-  System.out.println(twiJava.getUserTimeLine("100")); 
+  System.out.println(twiJava.getUserTimeLine(100)); 
 ```
 
 ※Japanese
