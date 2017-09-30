@@ -22,23 +22,23 @@ public class TwiJava{
 
     private TwiJavaHttpRequest httpRequest=new TwiJavaHttpRequest();
 
-    public static class TwiJavaToken { //APIトークンの設定クラス
+    public static class SetAPIToken { //APIトークンの設定クラス
 
         private String ck,cks,at,ats;
 
-        public TwiJavaToken setConsumerKey(String key){
+        public SetAPIToken setConsumerKey(String key){
             ck=key;
             return this;
         }
-        public TwiJavaToken setConsumerSecretKey(String key){
+        public SetAPIToken setConsumerSecretKey(String key){
             cks=key;
             return this;
         }
-        public TwiJavaToken setAccessToken(String key){
+        public SetAPIToken setAccessToken(String key){
             at=key;
             return this;
         }
-        public TwiJavaToken setAccessTokenSecret(String key){
+        public SetAPIToken setAccessTokenSecret(String key){
             ats=key;
             return this;
         }

@@ -1,4 +1,5 @@
 package twijava.net;
+import com.sun.corba.se.impl.ior.OldJIDLObjectKeyTemplate;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -8,10 +9,13 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.http.util.EntityUtils;
+import twijava.core.AuthorizationHttpCore;
 
 
 public class TwiJavaHttpRequest {
@@ -32,7 +36,7 @@ public class TwiJavaHttpRequest {
                 .map(e -> String.format("%s=\"%s\"", api.urlEncode(e.getKey()), api.urlEncode(e.getValue())))
                 .collect(Collectors.joining(", "));
         // POSTするデータのHttpComponentsの仕様
-        List<NameValuePair> postData = data.entrySet().stream()
+       /* List<NameValuePair> postData = data.entrySet().stream()
                 .map(e -> new BasicNameValuePair(e.getKey(), e.getValue()))
                 .collect(Collectors.toList());
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -42,7 +46,11 @@ public class TwiJavaHttpRequest {
             post.setEntity(new UrlEncodedFormEntity(postData, StandardCharsets.UTF_8));
             // レスポンスボディを勝手に文字列にして返してくれるおまじない
             return client.execute(post, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
-        }
+        }*/
+        String json=api.urlEncode(data.toString());
+        URL auth=new URL(sendurl);
+        AuthorizationHttpCore httpCore=new AuthorizationHttpCore();
+        return httpCore.connect(auth,"POST",json,headerString);
     }
     public String get(String url,Map<String,String>timeLineData,String ck,String ac,String cks,String ats)throws Exception {
         String fullurl=TWITTERAPI_BASEURL+url;
@@ -61,10 +69,11 @@ public class TwiJavaHttpRequest {
             request=new HttpGet(fullurl);
             System.out.println(request);
             request.setHeader(HttpHeaders.AUTHORIZATION, headerString);
-
-            return client.execute(request, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
+           return client.execute(request, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
         }
+
     }
+
     private Map<String, String> createHeader(String ck,String ac) {
         //Headerにおける要素
 
