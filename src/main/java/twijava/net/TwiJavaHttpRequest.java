@@ -36,7 +36,7 @@ public class TwiJavaHttpRequest {
                 .map(e -> String.format("%s=\"%s\"", api.urlEncode(e.getKey()), api.urlEncode(e.getValue())))
                 .collect(Collectors.joining(", "));
         // POSTするデータのHttpComponentsの仕様
-       /* List<NameValuePair> postData = data.entrySet().stream()
+        List<NameValuePair> postData = data.entrySet().stream()
                 .map(e -> new BasicNameValuePair(e.getKey(), e.getValue()))
                 .collect(Collectors.toList());
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -46,11 +46,7 @@ public class TwiJavaHttpRequest {
             post.setEntity(new UrlEncodedFormEntity(postData, StandardCharsets.UTF_8));
             // レスポンスボディを勝手に文字列にして返してくれるおまじない
             return client.execute(post, res -> EntityUtils.toString(res.getEntity(), "UTF-8"));
-        }*/
-        String json=api.urlEncode(data.toString());
-        URL auth=new URL(sendurl);
-        AuthorizationHttpCore httpCore=new AuthorizationHttpCore();
-        return httpCore.connect(auth,"POST",json,headerString);
+        }
     }
     public String get(String url,Map<String,String>timeLineData,String ck,String ac,String cks,String ats)throws Exception {
         String fullurl=TWITTERAPI_BASEURL+url;
