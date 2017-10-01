@@ -3,7 +3,7 @@ import twijava.net.TwiJavaHttpRequest;
 import java.util.Map;
 import java.util.TreeMap;
 /**
- * 認証にいるキー
+ * Twitter four API token for authentication
  * @param consumerKey
  * @param consumerSecretKey
  * @param accessToken
@@ -65,7 +65,7 @@ public class TwiJava{
         return httpRequest.post(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
     }
-    public String getHomeTimeline(Integer counter) throws Exception{
+    private String JsonHomeTimeline(Integer counter) throws Exception{
        Map<String,String>hometimelineData=new TreeMap<>();
        hometimelineData.put("count",counter.toString());
        hometimelineData.put("trim_user","1");
@@ -73,12 +73,20 @@ public class TwiJava{
        return httpRequest.get(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
    }
-    public String getUserTimeline(Integer counter)throws Exception{
+   public void getHomeTimeLine(Integer counter) throws Exception{
+        String resultRespone=JsonHomeTimeline(counter);
+        System.out.println(resultRespone);
+   }
+   private String JsonUserTimeline(Integer counter)throws Exception{
         Map<String,String>usertimelineData=new TreeMap<>();
         usertimelineData.put("count",counter.toString());
         usertimelineData.put("trim_user","1");
 
         return httpRequest.get(USER_TIMELINE_URL,usertimelineData,consumerKey,accessToken,
                 consumersecretKey,accessTokenSecret);
+    }
+    public void getUserTimeLine(Integer counter)throws Exception{
+        String resultRespone=JsonUserTimeline(counter);
+        System.out.println(resultRespone);
     }
 }

@@ -1,6 +1,4 @@
 package twijava.net;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
@@ -16,7 +14,10 @@ import java.util.stream.Collectors;
 
 /**
  * Web request support methods
- *
+ * @method urlencode url encoding method
+ * @method generateSignature generating Twitter API signature
+ * @method generatenonce random value for authnication
+ * @method formurlencodecontent url encode supporter
  */
 public class APIRequestSupporter{
 

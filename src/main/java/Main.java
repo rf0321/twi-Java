@@ -1,16 +1,18 @@
 import twijava.TwiJava;
 
-
+/**
+ * using library examples
+ */
 public class Main {
     public static void main(String[] args) throws Exception {
         TwiJava twitter=new TwiJava.TwiJavaToken()
-                .setConsumerKey("consumerkey")
-                .setConsumerSecretKey("consumerkeysecret");
-                .setAccessToken("accessToken");
-                .setAccessTokenSecret("accessTokensecret");
+                .setConsumerKey("")
+                .setConsumerSecretKey("")
+                .setAccessToken("")
+                .setAccessTokenSecret("")
                 .buildTokens();
-        System.out.println(twitter.tweet("おはよう"));
-        System.out.println(twitter.getHomeTimeline(5));
-        System.out.println(twitter.getUserTimeline(5));
+        twitter.tweet("");
+        twitter.getHomeTimeLine(100);
+        twitter.getUserTimeLine(100);
     }
 }
