@@ -1,23 +1,28 @@
 package twijava.json.util;
-import  twijava.json.objects.HomeTimeLines;
-import twijava.json.objects.TimeLineUser;
-import  twijava.json.objects.UserTimeLines;
+import  org.json.JSONArray;
+import  org.json.JSONObject;
+import  twijava.json.objects.TwitterJsonObjects;
+
+
 
 public class TwiJavaJsonDecoder {
-    private String created_at="[";
-    private String id_str;
-    private String text="\"text:\"";
-    private String retweet_count;
-    private TimeLineUser user;
 
-
-    public String decodeHjson(String responejson) throws Exception{
-        if(responejson.startsWith(created_at)){
-           //なんか処理
+    public void decode(String responejson){
+        TwitterJsonObjects objects=new TwitterJsonObjects();
+        try{
+                JSONArray jsonArray=new JSONArray(responejson);
+                for(int i=0; i<jsonArray.length();i++) {
+                    JSONObject object = jsonArray.getJSONObject(100);
+                    System.out.println(i);
+                    System.out.println(object.getString(objects.created_at));
+                    System.out.println(object.getString(objects.screen_name));
+                    System.out.println(object.getString(objects.name));
+                    System.out.println(object.getString(objects.id));
+                    System.out.println(object.getString(objects.text));
+                    System.out.println();
+                }
         }
-        return responejson;
-    }
-    public String decodeUjson(String responejson){
-          return responejson;
+        catch (Exception e){
+        }
     }
 }

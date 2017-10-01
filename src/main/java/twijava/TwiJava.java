@@ -23,6 +23,8 @@ public class TwiJava{
 
     private TwiJavaHttpRequest httpRequest=new TwiJavaHttpRequest();
 
+    private boolean isparse;
+
     public static class SetAPIToken  { //APIトークンの設定クラス
 
         private String ck,cks,at,ats;
@@ -74,10 +76,15 @@ public class TwiJava{
        return httpRequest.get(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
     }
-    public void getHomeTimeLine(Integer counter) throws Exception{
+    public void getHomeTimeLine(Integer counter,boolean parse) throws Exception{
         TwiJavaJsonDecoder decoder=new TwiJavaJsonDecoder();
-        String resultRespone=decoder.decodeHjson(HomeTimelineJson(counter));
-        System.out.println(resultRespone);
+        isparse=parse;
+        if(isparse=true) {
+            decoder.decode(HomeTimelineJson(counter));
+        }
+        else if(isparse=false){
+            System.out.println(JsonUserTimeline(counter));
+        }
     }
     private String JsonUserTimeline(Integer counter)throws Exception{
         Map<String,String>usertimelineData=new TreeMap<>();
@@ -87,9 +94,14 @@ public class TwiJava{
         return httpRequest.get(USER_TIMELINE_URL,usertimelineData,consumerKey,accessToken,
                 consumersecretKey,accessTokenSecret);
     }
-    public void getUserTimeLine(Integer counter) throws Exception{
+    public void getUserTimeLine(Integer counter,boolean parse) throws Exception{
         TwiJavaJsonDecoder decoder=new TwiJavaJsonDecoder();
-        String resultRespone=decoder.decodeUjson(JsonUserTimeline(counter));
-        System.out.println(resultRespone);
+        isparse=parse;
+        if(isparse=true) {
+            decoder.decode(JsonUserTimeline(counter));
+        }
+        else if(isparse=false){
+            System.out.println(JsonUserTimeline(counter));
+        }
     }
 }

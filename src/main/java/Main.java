@@ -8,6 +8,9 @@ public class Main {
                 .setAccessToken("865875664074792960-2OYUu49otbCkov5yKH7K4FD4EbRYLEw")
                 .setAccessTokenSecret("YFUr5FJ9hzc0drAnIsb21pdz8CGel7WjKgYuExvp6K2hj")
                 .buildTokens();
-        twitter.getHomeTimeLine(5);
+        twitter.getHomeTimeLine(100,false);
+        twitter.getHomeTimeLine(100,true);
+        twitter.getUserTimeLine(100,false);
+        twitter.getUserTimeLine(100,true);
     }
 }
