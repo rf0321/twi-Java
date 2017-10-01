@@ -12,8 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.http.util.EntityUtils;
-
-
+/**
+ * This class is to send the httpreauest into TwitterAPI
+**/
 public class TwiJavaHttpRequest {
     private static final String TWITTERAPI_BASEURL = "https://api.twitter.com/1.1/";
 
