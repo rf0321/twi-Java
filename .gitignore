@@ -2,7 +2,5 @@
 target/
 build/
 .gradle/
-!gradle-wrapper.jar
-
 #Package Files
 *.jar

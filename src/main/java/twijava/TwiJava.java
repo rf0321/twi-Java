@@ -1,8 +1,9 @@
 package twijava;
-import twijava.net.TwiJavaHttpRequest;
 import twijava.json.util.TwiJavaJsonDecoder;
+import twijava.net.OAuthRequest;
 import java.util.Map;
 import java.util.TreeMap;
+
 /**
  * 認証にいるキー
  * @param consumerKey
@@ -17,11 +18,10 @@ public class TwiJava{
     private String accessToken;
     private String accessTokenSecret;
 
-    private static final String TIMELINE_URL="statuses/home_timeline.json";
+    public static final String TIMELINE_URL="statuses/home_timeline.json";
     private static final String USER_TIMELINE_URL="statuses/user_timeline.json";
     private static final String USER_UPDATESTATUS_URL="statuses/update.json";
 
-    private TwiJavaHttpRequest httpRequest=new TwiJavaHttpRequest();
 
     private boolean isparse;
 
@@ -56,7 +56,7 @@ public class TwiJava{
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
      }
-    public String tweet(String text) throws Exception{
+   /* public String tweet(String text) throws Exception{
         Map<String,String>data=new TreeMap<>();
         data.put("status",text);
         data.put("trim_user","1");
@@ -65,15 +65,16 @@ public class TwiJava{
             System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
             System.exit(0);
         }
+        HttpRequest httpRequest=new HttpRequest();
         return httpRequest.post(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
-    }
+    }*/
     private String HomeTimelineJson(Integer counter) throws Exception{
        Map<String,String>hometimelineData=new TreeMap<>();
        hometimelineData.put("count",counter.toString());
        hometimelineData.put("trim_user","1");
-
-       return httpRequest.get(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
+        OAuthRequest request=new OAuthRequest();
+        return request.getrequestSender(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
     }
     public void getHomeTimeLine(Integer counter,boolean parse) throws Exception{
@@ -83,18 +84,19 @@ public class TwiJava{
             decoder.decode(HomeTimelineJson(counter));
         }
         else if(isparse=false){
-            System.out.println(JsonUserTimeline(counter));
+            System.out.println(HomeTimelineJson(counter));
         }
     }
-    private String JsonUserTimeline(Integer counter)throws Exception{
+
+    /*private String JsonUserTimeline(Integer counter)throws Exception{
         Map<String,String>usertimelineData=new TreeMap<>();
         usertimelineData.put("count",counter.toString());
         usertimelineData.put("trim_user","1");
-
+        HttpRequest httpRequest=new HttpRequest();
         return httpRequest.get(USER_TIMELINE_URL,usertimelineData,consumerKey,accessToken,
                 consumersecretKey,accessTokenSecret);
     }
-    public void getUserTimeLine(Integer counter,boolean parse) throws Exception{
+    /*public void getUserTimeLine(Integer counter,boolean parse) throws Exception{
         TwiJavaJsonDecoder decoder=new TwiJavaJsonDecoder();
         isparse=parse;
         if(isparse=true) {
@@ -103,5 +105,5 @@ public class TwiJava{
         else if(isparse=false){
             System.out.println(JsonUserTimeline(counter));
         }
-    }
+    }*/
 }

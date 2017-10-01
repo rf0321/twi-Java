@@ -1,5 +1,4 @@
 package twijava.net;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
