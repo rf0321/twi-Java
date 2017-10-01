@@ -6,7 +6,7 @@ This is class-library when you handle TwitterAPI that build on Gradle
 # The content relations pull request
 I welcome it.but if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Installation
-### 1.Clone this repository.
+### 1.Download Twijava1.0.0.jar
 ### 2.Twi-Java jar add as library your Java application
 #### Gradle ver
 ```build.gradle
