@@ -8,11 +8,14 @@ I welcome it.but if you pullrequest to this repository,you should write descript
 # Installation
 ### 1.Clone this repository.
 ### 2.Twi-Java jar add as library your Java application
+#### gradle ver
 ```build.gradle
 dependencies {
     compile 'TwiJava1.0.0'
 }
 ```
+#### standard installation(IntelliJ IDEA,Android Studio)
+Right click jar->Add as library
 ### 3.Please write this code when you want to use twitterAPI on Java application.
 #### Tweet
 ```Java
