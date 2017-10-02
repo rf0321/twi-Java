@@ -1,15 +1,15 @@
 package twijava;
 import twijava.json.util.TwiJavaJsonDecoder;
-import twijava.net.OAuthRequest;
+import twijava.net.OAuthUtil;
 import java.util.Map;
 import java.util.TreeMap;
 
 /**
  * 認証にいるキー
- * @param consumerKey
- * @param consumerSecretKey
- * @param accessToken
- * @param accessTokenSecret
+ *  consumerKey
+ *  consumerSecretKey
+ *  accessToken
+ *  accessTokenSecret
  */
 public class TwiJava{
 
@@ -65,15 +65,15 @@ public class TwiJava{
             System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
             System.exit(0);
         }
-        OAuthRequest request=new OAuthRequest();
-        return request.postrequestSender(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
+        OAuthUtil request=new OAuthUtil();
+       return request.oauthPostSender(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
     }
     private String HomeTimelineJson(Integer counter) throws Exception{
        Map<String,String>hometimelineData=new TreeMap<>();
        hometimelineData.put("count",counter.toString());
        hometimelineData.put("trim_user","1");
-        OAuthRequest request=new OAuthRequest();
+        OAuthUtil request=new OAuthUtil();
         return request.getrequestSender(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
     }

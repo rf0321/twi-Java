@@ -6,7 +6,9 @@ import  twijava.json.objects.TwitterJsonObjects;
 
 
 public class TwiJavaJsonDecoder {
-
+     /*
+       This is decoding json class.Using lib is org.json
+     */
     public void decode(String responejson){
         TwitterJsonObjects objects=new TwitterJsonObjects();
         try{
@@ -23,6 +25,7 @@ public class TwiJavaJsonDecoder {
                 }
         }
         catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

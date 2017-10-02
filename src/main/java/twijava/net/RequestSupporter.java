@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Web request support methods
  *
  */
-public class APIRequestSupporter{
+public class RequestSupporter {
 
    public String urlEncode(String s){
        final String UTF_8="UTF-8";

@@ -1,43 +1,47 @@
 package twijava.net.core;
-import java.net.HttpURLConnection;
+import  twijava.net.data.surpport.NameValuePairs;
+import  java.net.HttpURLConnection;
 import  java.net.URL;
-import  java.net.URLConnection;
 import  java.io.*;
-import  java.util.Map;
-import  twijava.net.APIRequestSupporter;
-import static java.lang.System.in;
-
+import  java.util.List;
+import  java.lang.Exception;
 
 public class HttpRequest {
+    public String post(String url, List<NameValuePairs>data, String header) throws  Exception {
+        HttpURLConnection connection = null;
+        try {
+            URL sendurl = new URL(url);
+            connection = (HttpURLConnection) sendurl.openConnection();
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", header);
+            connection.connect();
 
-   public String get(String uri, Map<String,String>data,String authSiganature) throws Exception{
-       APIRequestSupporter api=new APIRequestSupporter();
+            OutputStream stream = connection.getOutputStream();
 
-       uri+="?"+api.formUrlEncodedContent(data);
+            PrintStream ps = new PrintStream(stream);
+            ps.print(data.toString());
+            ps.close();
+            System.out.println("----- Request JSON -----");
+            System.out.println(data.toString());
 
-       URLConnection connection=new URL(uri).openConnection();
-       connection.setRequestProperty("Authorization",authSiganature);
-       connection.connect();
+        }catch (Exception e){
+            throw new Exception("You wrong http connection");
+        }
 
-       BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-       return convertBody(br);
-   }
-   public String post(String uri,Map<String,String>data,String authSignature)throws Exception{
-       APIRequestSupporter api=new APIRequestSupporter();
-       uri+=api.formUrlEncodedContent(data);
-       URL sendurl=new URL(uri);
-       HttpURLConnection connection;
-       connection=(HttpURLConnection)sendurl.openConnection();
-       connection.setRequestMethod("POST");
-       connection.setRequestProperty("Authorization", authSignature);
-       BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-       return convertBody(br);
-   }
-    private String convertBody(BufferedReader bufferedReader) throws Exception{
-       StringBuffer sb = new StringBuffer();
-       String st;
-       while((st = bufferedReader.readLine()) != null) sb.append(st);
-       try { in.close(); }  catch(Exception e) { e.printStackTrace(); }
-       return sb.toString();
-   }
+        /* for debugging
+
+        Map headers = connection.getHeaderFields();
+        headers.keySet().stream().forEach((key) -> {
+            System.out.println("[" + key + ":" + headers.get(key) + "]");
+        });
+        */
+       /*InputStreamReader isr = connection.getResponseCode() == HttpsURLConnection.HTTP_OK  ?
+                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8) :
+                new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(isr);*/
+
+       return data.toString();
+    }
 }
