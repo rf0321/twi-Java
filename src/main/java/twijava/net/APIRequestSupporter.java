@@ -40,7 +40,7 @@ public class APIRequestSupporter{
                 .map(e -> urlEncode(e.getKey()) + "=" + urlEncode(e.getValue()))
                 .collect(Collectors.joining("&"));
     }
-    public String generateSignature(String url, String method, Map<String, String> data,
+    public String generateSignature(String url, Map<String, String> data,
                                     String cks,String ats) {
         Mac mac = null;
         try {
@@ -55,7 +55,7 @@ public class APIRequestSupporter{
         }
         // 繋げる
         String signature = String.join("&",
-                method, urlEncode(url), urlEncode(formUrlEncodedContent(data)));
+                 urlEncode(url), urlEncode(formUrlEncodedContent(data)));
         // ハッシュ化したシグネチャをBase64に変化する
         return Base64.getEncoder().encodeToString(
                 mac.doFinal(signature.getBytes(StandardCharsets.US_ASCII)));

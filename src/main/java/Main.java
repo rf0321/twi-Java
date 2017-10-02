@@ -8,6 +8,6 @@ public class Main {
                 .setAccessToken("at")
                 .setAccessTokenSecret("ats")
                 .buildTokens();
-        twitter.getHomeTimeLine(100,false);
+        twitter.tweet("test");
     }
 }

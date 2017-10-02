@@ -56,7 +56,7 @@ public class TwiJava{
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
      }
-   /* public String tweet(String text) throws Exception{
+    public String tweet(String text) throws Exception{
         Map<String,String>data=new TreeMap<>();
         data.put("status",text);
         data.put("trim_user","1");
@@ -65,10 +65,10 @@ public class TwiJava{
             System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
             System.exit(0);
         }
-        HttpRequest httpRequest=new HttpRequest();
-        return httpRequest.post(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
+        OAuthRequest request=new OAuthRequest();
+        return request.postrequestSender(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
                consumersecretKey,accessTokenSecret);
-    }*/
+    }
     private String HomeTimelineJson(Integer counter) throws Exception{
        Map<String,String>hometimelineData=new TreeMap<>();
        hometimelineData.put("count",counter.toString());
