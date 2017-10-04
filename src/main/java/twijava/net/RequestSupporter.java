@@ -1,25 +1,19 @@
 package twijava.net;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 
+
 /**
  * Web request support methods
- *
  */
 public class RequestSupporter {
 
-   public String urlEncode(String s){
+   public static String urlEncode(String s){
        final String UTF_8="UTF-8";
        try{
           return URLEncoder.encode(s,UTF_8).replace("+", "%20");
@@ -40,7 +34,13 @@ public class RequestSupporter {
                 .map(e -> urlEncode(e.getKey()) + "=" + urlEncode(e.getValue()))
                 .collect(Collectors.joining("&"));
     }
-    public String generateSignature(String url, Map<String, String> data,
+}
+
+
+
+
+
+/*public String generateSignature(String url, Map<String, String> data,
                                     String cks,String ats) {
         Mac mac = null;
         try {
@@ -59,8 +59,7 @@ public class RequestSupporter {
         // ハッシュ化したシグネチャをBase64に変化する
         return Base64.getEncoder().encodeToString(
                 mac.doFinal(signature.getBytes(StandardCharsets.US_ASCII)));
-    }
-}
+    }*/
 
 
 

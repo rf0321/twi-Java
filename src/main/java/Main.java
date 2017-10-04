@@ -8,6 +8,6 @@ public class Main {
                 .setAccessToken("865875664074792960-2OYUu49otbCkov5yKH7K4FD4EbRYLEw")
                 .setAccessTokenSecret("YFUr5FJ9hzc0drAnIsb21pdz8CGel7WjKgYuExvp6K2hj")
                 .buildTokens();
-        twitter.tweet("test");
+        twitter.tweet("おはよう");
     }
 }

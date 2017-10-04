@@ -1,6 +1,6 @@
 package twijava;
-import twijava.json.util.TwiJavaJsonDecoder;
-import twijava.net.OAuthUtil;
+import twijava.net.core.HttpRequest;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -57,7 +57,7 @@ public class TwiJava{
         this.accessTokenSecret = accessTokenSecret;
      }
     public String tweet(String text) throws Exception{
-        Map<String,String>data=new TreeMap<>();
+        TreeMap<String,String>data=new TreeMap<>();
         data.put("status",text);
         data.put("trim_user","1");
 
@@ -65,27 +65,9 @@ public class TwiJava{
             System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
             System.exit(0);
         }
-        OAuthUtil request=new OAuthUtil();
-       return request.oauthPostSender(USER_UPDATESTATUS_URL,data,consumerKey,accessToken,
-               consumersecretKey,accessTokenSecret);
-    }
-    private String HomeTimelineJson(Integer counter) throws Exception{
-       Map<String,String>hometimelineData=new TreeMap<>();
-       hometimelineData.put("count",counter.toString());
-       hometimelineData.put("trim_user","1");
-        OAuthUtil request=new OAuthUtil();
-        return request.getrequestSender(TIMELINE_URL,hometimelineData,consumerKey,accessToken,
-               consumersecretKey,accessTokenSecret);
-    }
-    public void getHomeTimeLine(Integer counter,boolean parse) throws Exception{
-        TwiJavaJsonDecoder decoder=new TwiJavaJsonDecoder();
-        isparse=parse;
-        if(isparse=true) {
-            decoder.decode(HomeTimelineJson(counter));
-        }
-        else if(isparse=false){
-            System.out.println(HomeTimelineJson(counter));
-        }
+        HttpRequest request=new HttpRequest();
+        return request.post(USER_UPDATESTATUS_URL,consumerKey,accessToken,
+               consumersecretKey,accessTokenSecret,data);
     }
 
     /*private String JsonUserTimeline(Integer counter)throws Exception{
@@ -97,7 +79,7 @@ public class TwiJava{
                 consumersecretKey,accessTokenSecret);
     }
     /*public void getUserTimeLine(Integer counter,boolean parse) throws Exception{
-        TwiJavaJsonDecoder decoder=new TwiJavaJsonDecoder();
+        JsonDecoder decoder=new JsonDecoder();
         isparse=parse;
         if(isparse=true) {
             decoder.decode(JsonUserTimeline(counter));

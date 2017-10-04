@@ -1,47 +1,49 @@
 package twijava.net.core;
-import  twijava.net.data.surpport.NameValuePairs;
-import  java.net.HttpURLConnection;
-import  java.net.URL;
-import  java.io.*;
-import  java.util.List;
-import  java.lang.Exception;
+
+import twijava.net.OAuthUtil;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.TreeMap;
 
 public class HttpRequest {
-    public String post(String url, List<NameValuePairs>data, String header) throws  Exception {
-        HttpURLConnection connection = null;
-        try {
-            URL sendurl = new URL(url);
-            connection = (HttpURLConnection) sendurl.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Authorization", header);
-            connection.connect();
+    private static final String TWITTERAPI_BASEURL = "https://api.twitter.com/1.1/";
 
-            OutputStream stream = connection.getOutputStream();
+    private static final String UTF_8="UTF-8";
 
-            PrintStream ps = new PrintStream(stream);
-            ps.print(data.toString());
-            ps.close();
-            System.out.println("----- Request JSON -----");
-            System.out.println(data.toString());
+    private static final String POST_METHOD_NAME="POST";
+    private static final String GET_METHOD_NAME="GET";
 
-        }catch (Exception e){
-            throw new Exception("You wrong http connection");
-        }
+    public String post(String uri,String ck,String ac,String cks,String ats,TreeMap<String,String>data)throws Exception{
 
-        /* for debugging
+        String URL=TWITTERAPI_BASEURL+uri;
 
-        Map headers = connection.getHeaderFields();
-        headers.keySet().stream().forEach((key) -> {
-            System.out.println("[" + key + ":" + headers.get(key) + "]");
-        });
-        */
-       /*InputStreamReader isr = connection.getResponseCode() == HttpsURLConnection.HTTP_OK  ?
-                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8) :
-                new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8);
-        BufferedReader reader = new BufferedReader(isr);*/
+        TreeMap<String,String> oauthMap= OAuthUtil.getOAuthParam(ck,ac);
 
-       return data.toString();
+        String signature=OAuthUtil.generateSignature(POST_METHOD_NAME,URL,data,oauthMap);
+        String oauthSignature=OAuthUtil.makeOAuthHeader(signature,oauthMap,cks,ats);
+        String urlWithParam=OAuthUtil.getURLWithParam(URL,data);
+
+        URL sendurl=new URL(urlWithParam);
+
+        HttpURLConnection connection=(HttpURLConnection)sendurl.openConnection();
+
+        connection.setRequestMethod(POST_METHOD_NAME);
+        connection.setRequestProperty("Authorization",oauthSignature);
+        connection.connect();
+
+        BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        return convertBody(br);
     }
+
+    private String convertBody(BufferedReader br)throws Exception{
+        String respone=null;
+        while (br.readLine()!=null){
+            respone=String.format("\n")+"\n";
+        }
+        return respone;
+    }
+
 }
