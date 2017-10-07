@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.TreeMap;
 
 public class HttpRequest {
@@ -15,35 +16,30 @@ public class HttpRequest {
     private static final String POST_METHOD_NAME="POST";
     private static final String GET_METHOD_NAME="GET";
 
-    public String post(String uri,String ck,String ac,String cks,String ats,TreeMap<String,String>data)throws Exception{
+    public String getRequest(String uri,String ck,String ac,String cks,String ats,
+                             TreeMap<String,String>data)throws Exception{
 
-        String URL=TWITTERAPI_BASEURL+uri;
+        String url=TWITTERAPI_BASEURL+uri;
+        TreeMap<String,String>oauthMap=OAuthUtil.getOAuthParam(ck,ac);
 
-        TreeMap<String,String> oauthMap= OAuthUtil.getOAuthParam(ck,ac);
-
-        String signature=OAuthUtil.generateSignature(POST_METHOD_NAME,URL,data,oauthMap);
+        String signature=OAuthUtil.generateSignature(GET_METHOD_NAME,url,data,oauthMap);
         String oauthSignature=OAuthUtil.makeOAuthHeader(signature,oauthMap,cks,ats);
-        String urlWithParam=OAuthUtil.getURLWithParam(URL,data);
+        String urlwithParam=OAuthUtil.getURLWithParam(url,data);
 
-        URL sendurl=new URL(urlWithParam);
+        URL sendurl=new URL(urlwithParam);
 
-        HttpURLConnection connection=(HttpURLConnection)sendurl.openConnection();
+        URLConnection urlConnection = .openConnection();
+        urlConnection.setRequestProperty("Authorization", authHeader);
 
-        connection.setRequestMethod(POST_METHOD_NAME);
-        connection.setRequestProperty("Authorization",oauthSignature);
-        connection.connect();
-
-        BufferedReader br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        return convertBody(br);
-    }
-
-    private String convertBody(BufferedReader br)throws Exception{
-        String respone=null;
-        while (br.readLine()!=null){
-            respone=String.format("\n")+"\n";
+        BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
         }
-        return respone;
+        br.close();
+
+        return sb.toString();
     }
 
 }

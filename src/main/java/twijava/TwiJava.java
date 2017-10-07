@@ -1,6 +1,7 @@
 package twijava;
 import twijava.net.core.HttpRequest;
 
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -57,17 +58,17 @@ public class TwiJava{
         this.accessTokenSecret = accessTokenSecret;
      }
     public String tweet(String text) throws Exception{
+
+        String sendpostData=URLEncoder.encode(text,"UTF-8");
         TreeMap<String,String>data=new TreeMap<>();
-        data.put("status",text);
+        data.put("status",sendpostData);
         data.put("trim_user","1");
 
         if(text.length()>140){
             System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
             System.exit(0);
         }
-        HttpRequest request=new HttpRequest();
-        return request.post(USER_UPDATESTATUS_URL,consumerKey,accessToken,
-               consumersecretKey,accessTokenSecret,data);
+
     }
 
     /*private String JsonUserTimeline(Integer counter)throws Exception{
