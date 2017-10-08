@@ -1,29 +1,32 @@
 package twijava.net;
 
-
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.net.URLEncoder;
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * ck:OAuth consumer key
+ * cks:OAuth consumer secret
+ * at:OAuth access token
+ * ats:OAuth access token secret
+ */
 
-public class OAuthUtil { //Authorization components class
-    private static final String UTF8 = "UTF-8";
+public class OAuthUtil {  //Authorization components class
 
     public static TreeMap<String, String> getOAuthParam(String ck,String ac) {
-        //Headerにおける要素
 
-        RequestSupporter api = new RequestSupporter();
+        //Components of need to authorization
+
         TreeMap<String, String> data = new TreeMap<>();
         data.put("oauth_consumer_key", ck);
         data.put("oauth_signature_method", "HMAC-SHA1");
         data.put("oauth_timestamp", String.valueOf(Calendar
                 .getInstance(TimeZone.getTimeZone("UTC")).getTime().getTime() / 1000));
-        data.put("oauth_nonce", api.generateNonce());
+        data.put("oauth_nonce", ParamSupporter.generateNonce());
         data.put("oauth_token", ac);
         data.put("oauth_version", "1.0");
+
         return data;
     }
 
@@ -43,8 +46,8 @@ public class OAuthUtil { //Authorization components class
         }
 
         String temp="%s&%s&%s";
-        String signature =String.format(temp, URLEncoder.encode(method,UTF8),
-                URLEncoder.encode(url,UTF8),URLEncoder.encode(paramString.toString(),UTF8));
+        String signature =String.format(temp, ParamSupporter.urlEncode(method),
+                ParamSupporter.urlEncode(url),ParamSupporter.urlEncode(paramString.toString()));
         return signature;
     }
 
@@ -61,20 +64,20 @@ public class OAuthUtil { //Authorization components class
         return Base64.getEncoder().encodeToString(mac.doFinal(text)).trim();
     }
 
-
     public static String makeOAuthHeader(String signature,TreeMap<String,String>oAuthParam,
                                    String cks,String ats) throws Exception{
 
-        String compoKey=URLEncoder.encode(cks,"UTF-8")+"&"+URLEncoder.encode(ats,"UTF-8");
+        String compoKey=ParamSupporter.urlEncode(cks)+"&"+ParamSupporter.urlEncode(ats);
         String oauthSignature=generateBasicCode(signature,compoKey);
 
-        String encodedSignature=URLEncoder.encode(oauthSignature,"UTF-8");
+        String encodedSignature=ParamSupporter.urlEncode(oauthSignature);
 
        //esape data strings
-       String authHeaderTemp="OAuth oauth_consumer_key=\"%s\", oauth_nonce=\"%s\", oauth_signature=\"%s\", " +
+        String authHeaderTemp="OAuth oauth_consumer_key=\"%s\", oauth_nonce=\"%s\", oauth_signature=\"%s\", " +
                 "oauth_signature_method=\"%s\", oauth_timestamp=\"%s\", oauth_token=\"%s\", oauth_version=\"%s\"";
 
-       return String.format(authHeaderTemp, oAuthParam.get("oauth_consumer_key"),
+       return String.format(authHeaderTemp,
+               oAuthParam.get("oauth_consumer_key"),
                oAuthParam.get("oauth_nonce"),
                encodedSignature,
                oAuthParam.get("oauth_signature_method"),
@@ -82,10 +85,12 @@ public class OAuthUtil { //Authorization components class
                oAuthParam.get("oauth_token"),
                oAuthParam.get("oauth_version"));
     }
-    public static String getURLWithParam(String url,TreeMap<String,String>paramMap){
+
+    public static String makeURLwithParam(String url,TreeMap<String,String>paramMap){
         StringBuffer strBuffer=new StringBuffer(url);
         TreeMap<String,String>treeMap=new TreeMap<>();
         treeMap.putAll(paramMap);
+
 
         for (Map.Entry<String, String> paramEntry : treeMap.entrySet()) {
             if (paramEntry.equals(treeMap.firstEntry())) {

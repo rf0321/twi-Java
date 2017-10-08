@@ -8,22 +8,20 @@ public class JsonDecoder {
      /*
        This is decoding json class.Using lib is org.json
      */
-    public void decode(String responejson){
+    public static void decode(String responejson){
         TwitterJsonObjects objects=new TwitterJsonObjects();
         try{
             JSONArray jsonArray=new JSONArray(responejson);
             for(int i=0; i<jsonArray.length();i++) {
-                JSONObject object = jsonArray.getJSONObject(100);
-                System.out.println(i);
-                System.out.println(object.getString(objects.created_at));
+                JSONObject object = jsonArray.getJSONObject(i);
+                System.out.println("Timeline count:"+i);
 
-                System.out.println(object.getString(objects.screen_name));
+                System.out.println("Posted:"+object.getString(objects.created_at));
 
-                System.out.println(object.getString(objects.name));
+                System.out.println("user object content:"+object.getJSONObject("user"));
 
-                System.out.println(object.getString(objects.id));
+                System.out.println("Tweet content:"+object.getString(objects.text));
 
-                System.out.println(object.getString(objects.text));
 
                 System.out.println();
             }
