@@ -10,6 +10,6 @@ public class Main {
                 .buildTokens();
          twitter.getHomeTimeLine(50);
 
-         twitter.tweet("test");
+
     }
 }
