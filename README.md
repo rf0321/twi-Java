@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=master)](https://travis-ci.org/ItinoseSan/Twi-Java)
+[![Build Status](https://travis-ci.org/ItinoseSan/Twi-Java.svg?branch=release)](https://travis-ci.org/ItinoseSan/Twi-Java)
 ![lang-type](https://img.shields.io/badge/languauge-java%208-yellow.svg)
 
 # Twi-Java
