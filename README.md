@@ -32,7 +32,7 @@ twitter.tweet("Hello World");
 ```
 Get user Timeline
 ```java
-twitter.getUserTimeLine(100); //Integer is tweet of timeline count you can change this
+twitter.getUserTimeLine(100); //Integer is tweet count of timeline.You can change this
 ```
 Get home Timeline
 ```java
