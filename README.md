@@ -6,7 +6,7 @@ Twitter API wrapper for Java.
 # The content connect with pull request
 I welcome it.but if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Installation
-### 1.Download Twi-Java1.0.2.jar your java project directory.
+### 1.Download Twi-Java1.0.2.jar 
 ### 2.Add as Library the jar
 #### Gradle
 ```build.gradle
