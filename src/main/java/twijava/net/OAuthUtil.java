@@ -3,6 +3,7 @@ package twijava.net;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -13,7 +14,6 @@ import java.util.*;
  */
 
 public class OAuthUtil {  //Authorization components class
-
     public static TreeMap<String, String> getOAuthParam(String ck,String ac) {
 
         //Components of need to authorization
@@ -46,8 +46,12 @@ public class OAuthUtil {  //Authorization components class
         }
 
         String temp="%s&%s&%s";
-        String signature =String.format(temp, ParamSupporter.urlEncode(method),
-                ParamSupporter.urlEncode(url),ParamSupporter.urlEncode(paramString.toString()));
+
+        String signature =String.format(temp,
+                ParamSupporter.urlEncode(method),
+                ParamSupporter.urlEncode(url),
+                ParamSupporter.urlEncode(paramString.toString()));
+
         return signature;
     }
 
@@ -59,7 +63,7 @@ public class OAuthUtil {  //Authorization components class
 
         Mac mac=Mac.getInstance("HmacSHA1");
         mac.init(secretKey);
-        byte[]text=base.getBytes();
+        byte[]text=base.getBytes(StandardCharsets.US_ASCII);
 
         return Base64.getEncoder().encodeToString(mac.doFinal(text)).trim();
     }
@@ -95,12 +99,12 @@ public class OAuthUtil {  //Authorization components class
         for (Map.Entry<String, String> paramEntry : treeMap.entrySet()) {
             if (paramEntry.equals(treeMap.firstEntry())) {
                 strBuffer.append("?");
-            } else {
+            }
+            else {
                 strBuffer.append("&");
             }
             strBuffer.append(paramEntry.getKey() + "=" + paramEntry.getValue());
         }
-
         return strBuffer.toString();
     }
     /*private static void appending(TreeMap<String,String>treeMap,Object o,StringBuffer stringBuffer){

@@ -14,39 +14,43 @@ public class HttpRequest {
 
     private static final String POST="POST";
 
+  public String request(String method,String uri,String ck,String ac,String cks,String ats,
+                             TreeMap<String,String>data)throws Exception {
 
-      public String request(String method,String uri,String ck,String ac,String cks,String ats,
-                             TreeMap<String,String>data)throws Exception{
+      String url = TWITTERAPI_BASEURL + uri;
 
-        String url=TWITTERAPI_BASEURL+uri;
+      TreeMap<String, String> oauthMap = OAuthUtil.getOAuthParam(ck, ac);
 
-        TreeMap<String,String>oauthMap=OAuthUtil.getOAuthParam(ck,ac);
+      String signature = OAuthUtil.generateSignature(method, url, data, oauthMap);
+      String oAuthHeader = OAuthUtil.makeOAuthHeader(signature, oauthMap, cks, ats);
+      String urlwithParam = OAuthUtil.makeURLwithParam(url, data);
 
-        String signature=OAuthUtil.generateSignature(method,url,data,oauthMap);
-        String oAuthHeader=OAuthUtil.makeOAuthHeader(signature,oauthMap,cks,ats);
-        String urlwithParam=OAuthUtil.makeURLwithParam(url,data);
+      URL sendurl = new URL(urlwithParam);
 
-        URL sendurl=new URL(urlwithParam);
+      HttpURLConnection urlConnection = (HttpURLConnection) sendurl.openConnection();
 
-        HttpURLConnection urlConnection = (HttpURLConnection) sendurl.openConnection();
+      if (method.equals(POST)) {
+          urlConnection.setRequestMethod(POST);
+      }
 
-        if(method.equals(POST)) {
-            urlConnection.setRequestMethod(POST);
-        }
-        urlConnection.setRequestProperty("Authorization", oAuthHeader);
-        urlConnection.connect();
+      urlConnection.setRequestProperty("Accept-Language", "ja");
+      urlConnection.setRequestProperty("Authorization", oAuthHeader);
+      urlConnection.connect();
 
-          BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+      InputStreamReader isr = urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK ?
+              new InputStreamReader(urlConnection.getInputStream())
+              : new InputStreamReader(urlConnection.getErrorStream());
 
-          StringBuilder sb = new StringBuilder();
+      BufferedReader reader = new BufferedReader(isr);
+      StringBuilder sb=new StringBuilder();
+      String line;
 
-          String line;
-
-          while ((line = br.readLine()) != null) {sb.append(line);}
-
-          br.close();
-
-          return sb.toString();
-    }
-
+      while ((line = reader.readLine()) != null) {
+          if (method.equals(POST))
+              System.out.print(sb.append(line));
+          else sb.append(line);
+      }
+      reader.close();
+      return sb.toString();
+  }
 }

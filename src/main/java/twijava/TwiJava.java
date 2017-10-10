@@ -1,5 +1,6 @@
 package twijava;
 import twijava.json.util.JsonDecoder;
+import twijava.net.ParamSupporter;
 import twijava.net.core.HttpRequest;
 import java.util.TreeMap;
 
@@ -10,7 +11,7 @@ import java.util.TreeMap;
  *  accessToken
  *  accessTokenSecret
  */
-public class TwiJava{
+public class TwiJava{ //Method components of this library.
 
     private String consumerKey;
     private String consumersecretKey;
@@ -20,6 +21,11 @@ public class TwiJava{
     private static final String TIMELINE_URL="statuses/home_timeline.json";
     private static final String USER_TIMELINE_URL="statuses/user_timeline.json";
     private static final String USER_UPDATESTATUS_URL="statuses/update.json";
+
+    private static final String SEACH_URL="search/tweets.json";
+    private static final String FOLLOWERS_URL="followers/list.json";
+    private static final String FOLLOW_URL="friends/list.json";
+
 
 
     public static class SetAPIToken  { //APIトークンの設定クラス
@@ -53,45 +59,111 @@ public class TwiJava{
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
      }
-    public String tweet(String text) throws Exception{
+    public void tweet(String text){
         TreeMap<String,String>data=new TreeMap<>();
-        data.put("status",text);
+        data.put("status", ParamSupporter.urlEncode(text)); //明日urlencodeしないでためす。もしくはUS-ASCIIでエンコードしてみる
         data.put("trim_user","1");
 
-        if(text.length()>140){
-            System.out.println("[Request Error:You cant this tweet because the content charactor over 140]");
+        if(text.length()>140) {
+            System.out.println("You cant this tweet because the content charactor over 140");
             System.exit(0);
         }
-        HttpRequest httpRequest=new HttpRequest();
-
-        return httpRequest.request("POST",USER_UPDATESTATUS_URL,consumerKey,accessToken,
-                consumersecretKey,accessTokenSecret,data);
+        try {
+            HttpRequest httpRequest = new HttpRequest();
+            httpRequest.request("POST", USER_UPDATESTATUS_URL, consumerKey, accessToken,
+                    consumersecretKey, accessTokenSecret, data);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public void getHomeTimeLine(Integer counter)throws Exception{
-        JsonDecoder.decode(homeTimeLineJson(counter));
+    public void getHomeTimeLine(Integer counter){
+        try {
+            String result=homeTimeLineJson(counter);
+            System.out.println("------Parsed json data------");
+            JsonDecoder.decode(result);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void getUserTimeLine(Integer counter){
+        try {
+            String result=userTimeLineJson(counter);
+            System.out.println("------Parsed json data------");
+            JsonDecoder.decode(result);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void searchTweetWord(String searchWord){
+        TreeMap<String,String>data=new TreeMap<>();
+        data.put("q",searchWord);
+        try {
+            HttpRequest httpRequest = new HttpRequest();
+            String resultjson = httpRequest.request("GET",SEACH_URL, consumerKey, accessToken,
+                    consumersecretKey, accessTokenSecret, data);
+            System.out.print(resultjson);
+        }
+        catch (Exception e){
+        }
     }
 
-    public void getUserTimeLine(Integer counter) throws Exception{
-        JsonDecoder.decode(userTimelineJson(counter));
-    }
-    private String homeTimeLineJson(Integer counter)throws Exception{
-        TreeMap<String,String>hometimelineData=new TreeMap<>();
-        hometimelineData.put("count",counter.toString());
-        hometimelineData.put("trim_user","1");
+    public void getUserFollowerList(){
+        TreeMap<String, String> followerdata = new TreeMap<>();
+        followerdata.put("cursor","-1");
+        try{
+            HttpRequest httpRequest = new HttpRequest();
 
-        HttpRequest request=new HttpRequest();
-
-        return request.request("GET",TIMELINE_URL,consumerKey,accessToken,
-                consumersecretKey,accessTokenSecret,hometimelineData);
+           String result=httpRequest.request("GET", FOLLOWERS_URL, consumerKey, accessToken,
+                    consumersecretKey, accessTokenSecret, followerdata);
+           System.out.println(result);
+        }
+        catch (Exception e){
+        }
     }
-    private String userTimelineJson(Integer counter)throws Exception{
+    public void getUserFollowList(){
+        TreeMap<String, String> followdata = new TreeMap<>();
+        followdata.put("cursor","-1");
+        try{
+            HttpRequest httpRequest = new HttpRequest();
+
+            String result=httpRequest.request("GET", FOLLOW_URL, consumerKey, accessToken,
+                    consumersecretKey, accessTokenSecret, followdata);
+            System.out.println(result);
+        }
+        catch (Exception e){
+        }
+    }
+
+    public String homeTimeLineJson(Integer counter){
+           TreeMap<String, String> hometimelineData = new TreeMap<>();
+           hometimelineData.put("count", counter.toString());
+           hometimelineData.put("trim_user", "1");
+       try{
+           HttpRequest httpRequest = new HttpRequest();
+
+           return httpRequest.request("GET", TIMELINE_URL, consumerKey, accessToken,
+                   consumersecretKey, accessTokenSecret, hometimelineData);
+       }
+       catch (Exception e){
+           return hometimelineData.toString()+"is maybe wrong";
+       }
+    }
+    public String userTimeLineJson(Integer counter){
+
         TreeMap<String,String>usertimelineData=new TreeMap<>();
         usertimelineData.put("count",counter.toString());
         usertimelineData.put("trim_user","1");
-
-        HttpRequest httpRequest=new HttpRequest();
-        return httpRequest.request("GET",USER_TIMELINE_URL,consumerKey,accessToken,
-                consumersecretKey,accessTokenSecret,usertimelineData);
+        try {
+            HttpRequest httpRequest = new HttpRequest();
+            return httpRequest.request("GET", USER_TIMELINE_URL, consumerKey, accessToken,
+                    consumersecretKey, accessTokenSecret, usertimelineData);
+        }
+        catch (Exception e){
+            return usertimelineData.toString()+"is maybe wrong";
+        }
     }
 }
