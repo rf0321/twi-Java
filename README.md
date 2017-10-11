@@ -19,7 +19,7 @@ Right click jar->Select "Add as Lbrary"
 # How to use
 Input your twitter api tokens
 ```java
- TwiJava twitter = new TwiJava.SetAPIToken()
+ TwiJava twitter = new TwiJava.TokenInitialize()
                 .setConsumerKey("Your TwitterAPI ConsumerKey")
                 .setConsumerSecretKey("Your TwitterAPI ConsumerKeySecret")
                 .setAccessToken("Your TwitterAPI AccessToken")
@@ -37,6 +37,15 @@ twitter.getUserTimeLine(100); //Integer is tweet count of timeline.You can chang
 Get home Timeline
 ```java
 twitter.getHomeTimeLine(100);
+```
+Search tweet(returns json data)
+```java
+twitter.getSearchTweetJson("Twi-Java");
+```
+Get follow/follower list(returns json data)
+```java
+twitter.getUserFollowListJson();
+twitter.getUserFollowerListJson();
 ```
 # LICENCE
 ```
