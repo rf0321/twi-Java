@@ -6,7 +6,7 @@ Twitter API wrapper for Java.Basic system is used by standard library only. Pars
 # The content connect with pull request
 I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Installation
-### 1.Download Twi-Java1.0.2.jar 
+### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
 #### Gradle
 ```build.gradle
@@ -38,7 +38,7 @@ Get home Timeline
 ```java
 twitter.getHomeTimeLine(100);
 ```
-#### 1.0.3 new method
+#### 1.0.3 new method(making now)
 Search tweet(returns json data)
 ```java
 twitter.getSearchTweetJson("Twi-Java");
