@@ -1,7 +1,8 @@
-package twijava;
+package twijava.methods;
 import twijava.json.util.JsonDecoder;
 import twijava.net.ParamSupporter;
-import twijava.net.core.HttpRequest;
+import twijava.net.http.HttpRequest;
+
 import java.util.TreeMap;
 
 /**
@@ -11,7 +12,7 @@ import java.util.TreeMap;
  *  accessToken
  *  accessTokenSecret
  */
-public class TwiJava{ //Method components of this library.
+public class TwiJava{ //Method components class of this library.
 
     private String consumerKey;
     private String consumersecretKey;
@@ -28,23 +29,23 @@ public class TwiJava{ //Method components of this library.
 
 
 
-    public static class SetAPIToken  { //APIトークンの設定クラス
+    public static class TokenInitialize  { //APIトークンの設定クラス
 
         private String ck,cks,at,ats;
 
-        public SetAPIToken setConsumerKey(String key){
+        public TokenInitialize setConsumerKey(String key){
             ck=key;
             return this;
         }
-        public SetAPIToken setConsumerSecretKey(String key){
+        public TokenInitialize setConsumerSecretKey(String key){
             cks=key;
             return this;
         }
-        public SetAPIToken setAccessToken(String key){
+        public TokenInitialize setAccessToken(String key){
             at=key;
             return this;
         }
-        public SetAPIToken setAccessTokenSecret(String key){
+        public TokenInitialize setAccessTokenSecret(String key){
             ats=key;
             return this;
         }
@@ -61,7 +62,7 @@ public class TwiJava{ //Method components of this library.
      }
     public void tweet(String text){
         TreeMap<String,String>data=new TreeMap<>();
-        data.put("status", ParamSupporter.urlEncode(text)); //明日urlencodeしないでためす。もしくはUS-ASCIIでエンコードしてみる
+        data.put("status", ParamSupporter.urlEncode(text));
         data.put("trim_user","1");
 
         if(text.length()>140) {
@@ -79,66 +80,70 @@ public class TwiJava{ //Method components of this library.
     }
 
     public void getHomeTimeLine(Integer counter){
-        try {
-            String result=homeTimeLineJson(counter);
-            System.out.println("------Parsed json data------");
-            JsonDecoder.decode(result);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        JsonDecoder.timelinedecode(homeTimeLineJson(counter));
     }
+
     public void getUserTimeLine(Integer counter){
-        try {
-            String result=userTimeLineJson(counter);
-            System.out.println("------Parsed json data------");
-            JsonDecoder.decode(result);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        JsonDecoder.timelinedecode(userTimeLineJson(counter));
     }
-    public void searchTweetWord(String searchWord){
+
+    public void getSearchTweetJson(String word){
+        System.out.println(searchTweetJson(word));
+    }
+
+    public void getUserFollowerListJson(){
+        System.out.println(userFollowerListJson());
+    }
+
+    public void getUserFollowListJson(){
+        System.out.println(userFollowListJson());
+    }
+
+    private String searchTweetJson(String searchWord){
         TreeMap<String,String>data=new TreeMap<>();
         data.put("q",searchWord);
         try {
             HttpRequest httpRequest = new HttpRequest();
-            String resultjson = httpRequest.request("GET",SEACH_URL, consumerKey, accessToken,
+            return httpRequest.request("GET",SEACH_URL, consumerKey, accessToken,
                     consumersecretKey, accessTokenSecret, data);
-            System.out.print(resultjson);
         }
         catch (Exception e){
+            return "";
         }
     }
 
-    public void getUserFollowerList(){
+    private String userFollowerListJson(){
         TreeMap<String, String> followerdata = new TreeMap<>();
         followerdata.put("cursor","-1");
         try{
             HttpRequest httpRequest = new HttpRequest();
 
-           String result=httpRequest.request("GET", FOLLOWERS_URL, consumerKey, accessToken,
+           return httpRequest.request("GET", FOLLOWERS_URL, consumerKey, accessToken,
                     consumersecretKey, accessTokenSecret, followerdata);
-           System.out.println(result);
         }
         catch (Exception e){
+            return "";
         }
     }
-    public void getUserFollowList(){
+    private String userFollowListJson(){
         TreeMap<String, String> followdata = new TreeMap<>();
         followdata.put("cursor","-1");
         try{
             HttpRequest httpRequest = new HttpRequest();
 
-            String result=httpRequest.request("GET", FOLLOW_URL, consumerKey, accessToken,
+            return httpRequest.request("GET", FOLLOW_URL, consumerKey, accessToken,
                     consumersecretKey, accessTokenSecret, followdata);
-            System.out.println(result);
         }
         catch (Exception e){
+            return "";
         }
     }
 
     public String homeTimeLineJson(Integer counter){
+        if(counter>200){
+            System.out.println("Cant get timeline tweets over 200");
+            System.exit(0);
+        }
            TreeMap<String, String> hometimelineData = new TreeMap<>();
            hometimelineData.put("count", counter.toString());
            hometimelineData.put("trim_user", "1");
@@ -149,11 +154,15 @@ public class TwiJava{ //Method components of this library.
                    consumersecretKey, accessTokenSecret, hometimelineData);
        }
        catch (Exception e){
-           return hometimelineData.toString()+"is maybe wrong";
+           return "";
        }
     }
-    public String userTimeLineJson(Integer counter){
 
+    public String userTimeLineJson(Integer counter){
+        if(counter>200){
+            System.out.println("Cant get timeline tweets over 200");
+            System.exit(0);
+        }
         TreeMap<String,String>usertimelineData=new TreeMap<>();
         usertimelineData.put("count",counter.toString());
         usertimelineData.put("trim_user","1");
@@ -163,7 +172,7 @@ public class TwiJava{ //Method components of this library.
                     consumersecretKey, accessTokenSecret, usertimelineData);
         }
         catch (Exception e){
-            return usertimelineData.toString()+"is maybe wrong";
+            return "";
         }
     }
 }

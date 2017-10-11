@@ -1,4 +1,6 @@
-package twijava.net;
+package twijava.net.oauth;
+
+import twijava.net.ParamSupporter;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -14,6 +16,7 @@ import java.util.*;
  */
 
 public class OAuthUtil {  //Authorization components class
+
     public static TreeMap<String, String> getOAuthParam(String ck,String ac) {
 
         //Components of need to authorization
@@ -32,25 +35,26 @@ public class OAuthUtil {  //Authorization components class
 
     public static String generateSignature(String method,String url,
                                            TreeMap<String,String>urlParam,TreeMap<String,String>oauthParam)throws Exception{
-        StringBuffer paramString=new StringBuffer();
         TreeMap<String,String>treeMap= new TreeMap<>();
+       // StringBuffer paramString=new StringBuffer();
 
         treeMap.putAll(urlParam);
         treeMap.putAll(oauthParam);
 
-        for(Map.Entry<String,String>param:treeMap.entrySet()){
-           if(!param.equals(treeMap.firstEntry())){
-               paramString.append("&");
-           }
-           paramString.append(param.getKey()+"="+param.getValue());
-        }
+        /*for(Map.Entry<String,String>param:treeMap.entrySet()){
+            if(!param.equals(treeMap.firstEntry())){
+                paramString.append("&");
+            }
+            paramString.append(param.getKey()+"="+param.getValue());
+        }*/
+        String paramStr=ParamSupporter.oAuthParamAppending(treeMap);
 
         String temp="%s&%s&%s";
 
         String signature =String.format(temp,
                 ParamSupporter.urlEncode(method),
                 ParamSupporter.urlEncode(url),
-                ParamSupporter.urlEncode(paramString.toString()));
+                ParamSupporter.urlEncode(paramStr));
 
         return signature;
     }
@@ -95,33 +99,15 @@ public class OAuthUtil {  //Authorization components class
         TreeMap<String,String>treeMap=new TreeMap<>();
         treeMap.putAll(paramMap);
 
-
         for (Map.Entry<String, String> paramEntry : treeMap.entrySet()) {
             if (paramEntry.equals(treeMap.firstEntry())) {
                 strBuffer.append("?");
-            }
-            else {
+            } else {
                 strBuffer.append("&");
             }
             strBuffer.append(paramEntry.getKey() + "=" + paramEntry.getValue());
         }
+
         return strBuffer.toString();
     }
-    /*private static void appending(TreeMap<String,String>treeMap,Object o,StringBuffer stringBuffer){
-        if(o==treeMap.firstKey()){
-            stringBuffer.append("?");
-        }
-        else {
-            stringBuffer.append("&");
-        }
-        stringBuffer.append(o+"="+treeMap.get(o));
-    }
-
-    public String setcallbackURL(String url){
-        callBackUrl=url;
-        return callBackUrl;
-    }
-    public String getCallBackUrl(){
-        return callBackUrl;
-    }*/
 }

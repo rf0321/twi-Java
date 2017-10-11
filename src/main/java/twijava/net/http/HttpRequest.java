@@ -1,6 +1,6 @@
-package twijava.net.core;
+package twijava.net.http;
 
-import twijava.net.OAuthUtil;
+import twijava.net.oauth.OAuthUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,7 +14,7 @@ public class HttpRequest {
 
     private static final String POST="POST";
 
-  public String request(String method,String uri,String ck,String ac,String cks,String ats,
+   public String request(String method,String uri,String ck,String ac,String cks,String ats,
                              TreeMap<String,String>data)throws Exception {
 
       String url = TWITTERAPI_BASEURL + uri;
