@@ -1,6 +1,6 @@
 package twijava.json.objects;
 
-public class TwitterJsonObjects {
+public class TwitterJsonObjects { //Twitter json objects need to parsing json.
     /**
      * @param created_at tweet made by twitter user
      * @param id_str id string
@@ -10,11 +10,8 @@ public class TwitterJsonObjects {
      * @param user
      */
     public final String created_at="created_at";
-    public final String id_str="id_str";
-    public final String id="id";
-    public final String user_id="user_id";
     public final String text="text";
-    public final String retweet_count="retweet_count";
-    public final String name="name";
-    public final String screen_name="screen_name";
+    public final String user="user";
+
+
 }

@@ -1,8 +1,11 @@
-package twijava.net;
+package twijava.net.oauth;
+
+import twijava.net.ParamSupporter;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -32,22 +35,27 @@ public class OAuthUtil {  //Authorization components class
 
     public static String generateSignature(String method,String url,
                                            TreeMap<String,String>urlParam,TreeMap<String,String>oauthParam)throws Exception{
-        StringBuffer paramString=new StringBuffer();
         TreeMap<String,String>treeMap= new TreeMap<>();
+       // StringBuffer paramString=new StringBuffer();
 
         treeMap.putAll(urlParam);
         treeMap.putAll(oauthParam);
 
-        for(Map.Entry<String,String>param:treeMap.entrySet()){
-           if(!param.equals(treeMap.firstEntry())){
-               paramString.append("&");
-           }
-           paramString.append(param.getKey()+"="+param.getValue());
-        }
+        /*for(Map.Entry<String,String>param:treeMap.entrySet()){
+            if(!param.equals(treeMap.firstEntry())){
+                paramString.append("&");
+            }
+            paramString.append(param.getKey()+"="+param.getValue());
+        }*/
+        String paramStr=ParamSupporter.oAuthParamAppending(treeMap);
 
         String temp="%s&%s&%s";
-        String signature =String.format(temp, ParamSupporter.urlEncode(method),
-                ParamSupporter.urlEncode(url),ParamSupporter.urlEncode(paramString.toString()));
+
+        String signature =String.format(temp,
+                ParamSupporter.urlEncode(method),
+                ParamSupporter.urlEncode(url),
+                ParamSupporter.urlEncode(paramStr));
+
         return signature;
     }
 
@@ -59,7 +67,7 @@ public class OAuthUtil {  //Authorization components class
 
         Mac mac=Mac.getInstance("HmacSHA1");
         mac.init(secretKey);
-        byte[]text=base.getBytes();
+        byte[]text=base.getBytes(StandardCharsets.US_ASCII);
 
         return Base64.getEncoder().encodeToString(mac.doFinal(text)).trim();
     }
@@ -91,7 +99,6 @@ public class OAuthUtil {  //Authorization components class
         TreeMap<String,String>treeMap=new TreeMap<>();
         treeMap.putAll(paramMap);
 
-
         for (Map.Entry<String, String> paramEntry : treeMap.entrySet()) {
             if (paramEntry.equals(treeMap.firstEntry())) {
                 strBuffer.append("?");
@@ -103,21 +110,4 @@ public class OAuthUtil {  //Authorization components class
 
         return strBuffer.toString();
     }
-    /*private static void appending(TreeMap<String,String>treeMap,Object o,StringBuffer stringBuffer){
-        if(o==treeMap.firstKey()){
-            stringBuffer.append("?");
-        }
-        else {
-            stringBuffer.append("&");
-        }
-        stringBuffer.append(o+"="+treeMap.get(o));
-    }
-
-    public String setcallbackURL(String url){
-        callBackUrl=url;
-        return callBackUrl;
-    }
-    public String getCallBackUrl(){
-        return callBackUrl;
-    }*/
 }

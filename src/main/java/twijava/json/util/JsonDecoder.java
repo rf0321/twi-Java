@@ -4,11 +4,11 @@ import  org.json.JSONObject;
 import  twijava.json.objects.TwitterJsonObjects;
 
 
-public class JsonDecoder {
+public class JsonDecoder { //Decoding json class.This opensource uses "org.json" on parsing json.
      /*
        This is decoding json class.Using lib is org.json
      */
-    public static void decode(String responejson){
+    public static void timelinedecode(String responejson){
         TwitterJsonObjects objects=new TwitterJsonObjects();
         try{
             JSONArray jsonArray=new JSONArray(responejson);
@@ -18,7 +18,7 @@ public class JsonDecoder {
 
                 System.out.println("Posted:"+object.getString(objects.created_at));
 
-                System.out.println("user object content:"+object.getJSONObject("user"));
+                System.out.println("user object content:"+object.getJSONObject(objects.user));
 
                 System.out.println("Tweet content:"+object.getString(objects.text));
 
@@ -27,7 +27,6 @@ public class JsonDecoder {
             }
         }
         catch (Exception e){
-            e.printStackTrace();
         }
     }
 }
