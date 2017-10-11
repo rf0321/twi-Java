@@ -38,7 +38,7 @@ Get home Timeline
 ```java
 twitter.getHomeTimeLine(100);
 ```
-#### 1.0.3 new method(making now)
+#### *1.0.3 new method(making now)
 Search tweet(returns json data)
 ```java
 twitter.getSearchTweetJson("Twi-Java");
