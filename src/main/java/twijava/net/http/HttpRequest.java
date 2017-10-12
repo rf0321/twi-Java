@@ -8,16 +8,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.TreeMap;
 
+
 public class HttpRequest {
 
     private static final String TWITTERAPI_BASEURL = "https://api.twitter.com/1.1/"; //common url of endpoint
 
     private static final String POST="POST";
 
-   public String request(String method,String uri,String ck,String ac,String cks,String ats,
+   public String request(String method,String endpointSetter,String ck,String ac,String cks,String ats,
                              TreeMap<String,String>data)throws Exception {
 
-      String url = TWITTERAPI_BASEURL + uri;
+      String url = TWITTERAPI_BASEURL + endpointSetter;
 
       TreeMap<String, String> oauthMap = OAuthUtil.getOAuthParam(ck, ac);
 
