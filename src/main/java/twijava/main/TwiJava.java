@@ -1,4 +1,4 @@
-package twijava.methods;
+package twijava.main;
 import twijava.json.util.JsonDecoder;
 import twijava.net.ParamSupporter;
 import twijava.net.http.HttpRequest;
@@ -29,7 +29,7 @@ public class TwiJava{ //Method components class of this library.
 
 
 
-    public static class TokenInitialize  { //APIトークンの設定クラス
+   public static class TokenInitialize  { //Setting API Token class
 
         private String ck,cks,at,ats;
 
@@ -53,6 +53,7 @@ public class TwiJava{ //Method components class of this library.
             return new TwiJava(ck,cks,at,ats);
         }
      }
+     /* build tokens constructor */
      private TwiJava(String consumerKey,String consumersecretKey,
                     String accessToken,String accessTokenSecret) {
         this.consumerKey = consumerKey;
@@ -60,7 +61,8 @@ public class TwiJava{ //Method components class of this library.
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
      }
-    public void tweet(String text){
+     /* Methods for this wrapper users.*/
+    public String tweet(String text){
         TreeMap<String,String>data=new TreeMap<>();
         data.put("status", ParamSupporter.urlEncode(text));
         data.put("trim_user","1");
@@ -71,11 +73,11 @@ public class TwiJava{ //Method components class of this library.
         }
         try {
             HttpRequest httpRequest = new HttpRequest();
-            httpRequest.request("POST", USER_UPDATESTATUS_URL, consumerKey, accessToken,
+           return httpRequest.request("POST", USER_UPDATESTATUS_URL, consumerKey, accessToken,
                     consumersecretKey, accessTokenSecret, data);
         }
         catch (Exception e){
-            e.printStackTrace();
+            return ""; // net/http/HttpRequest.java returns response
         }
     }
 
@@ -139,7 +141,7 @@ public class TwiJava{ //Method components class of this library.
         }
     }
 
-    public String homeTimeLineJson(Integer counter){
+    private String homeTimeLineJson(Integer counter){
         if(counter>200){
             System.out.println("Cant get timeline tweets over 200");
             System.exit(0);
@@ -158,7 +160,7 @@ public class TwiJava{ //Method components class of this library.
        }
     }
 
-    public String userTimeLineJson(Integer counter){
+    private String userTimeLineJson(Integer counter){
         if(counter>200){
             System.out.println("Cant get timeline tweets over 200");
             System.exit(0);

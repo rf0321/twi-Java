@@ -3,6 +3,8 @@ import  org.json.JSONArray;
 import  org.json.JSONObject;
 import  twijava.json.objects.TwitterJsonObjects;
 
+import java.util.stream.IntStream;
+
 
 public class JsonDecoder { //Decoding json class.This opensource uses "org.json" on parsing json.
      /*
@@ -12,7 +14,19 @@ public class JsonDecoder { //Decoding json class.This opensource uses "org.json"
         TwitterJsonObjects objects=new TwitterJsonObjects();
         try{
             JSONArray jsonArray=new JSONArray(responejson);
-            for(int i=0; i<jsonArray.length();i++) {
+            IntStream.range(0, jsonArray.length())
+                    .mapToObj(i -> jsonArray.getJSONObject(i))
+                    .forEach(i -> System.out.println("Timeline count:" + jsonArray.length()+"\n"+
+                            "Posted:"+i.getString(objects.created_at)+"\n"+
+                            "User objects:"+ i.getJSONObject(objects.user)+"\n"+
+                            "Tweet content:"+i.getString(objects.text)+"\n"));
+        }
+        catch (Exception e){
+        }
+    }
+}
+
+                /*for(int i=0; i<jsonArray.length();i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
                 System.out.println("Timeline count:"+i);
 
@@ -24,9 +38,4 @@ public class JsonDecoder { //Decoding json class.This opensource uses "org.json"
 
 
                 System.out.println();
-            }
-        }
-        catch (Exception e){
-        }
-    }
-}
+                }*/
