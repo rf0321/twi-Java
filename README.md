@@ -73,4 +73,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 # If you have some question or advice and so on
-Please contact my ![Twitter](https://twitter.com/ItinoseVM) or open issue this repository. Im waiting;)
+Please contact my [Twitter](https://twitter.com/ItinoseVM) or open issue this repository. Im waiting;)
