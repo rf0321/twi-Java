@@ -3,8 +3,6 @@
 
 # Twi-Java
 Twitter API wrapper for Java.Basic system is used by standard library only. Parsing json is used by org.json
-# The content connect with pull request
-I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Installation
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
@@ -48,6 +46,8 @@ Get follow/follower list(returns json data)
 twitter.getUserFollowListJson();
 twitter.getUserFollowerListJson();
 ```
+# Contributing
+I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
 # LICENCE
 ```
 MIT License
