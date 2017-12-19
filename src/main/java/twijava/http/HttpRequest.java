@@ -36,7 +36,7 @@ public class HttpRequest {
         urlConnection.setRequestMethod(POST);
         urlConnection.connect();
 
-        return recieveResponse(urlConnection,POST);
+        return receiveResponse(urlConnection,POST);
     }
 
     public String get(String endpointSetter,String ck,String cks,String ac,String ats,
@@ -57,11 +57,11 @@ public class HttpRequest {
         urlConnection.setRequestProperty("Accept-Language", "ja");
         urlConnection.setRequestProperty("Authorization", oAuthHeader);
 
-        return recieveResponse(urlConnection,GET);
+        return receiveResponse(urlConnection,GET);
 
     }
 
-    private String recieveResponse(HttpURLConnection connection, String method) throws Exception{
+    private String receiveResponse(HttpURLConnection connection, String method) throws Exception{
 
         InputStreamReader isr = connection.getResponseCode() == HttpURLConnection.HTTP_OK ?
                 new InputStreamReader(connection.getInputStream())
