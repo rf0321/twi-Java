@@ -6,3 +6,5 @@ build/
 *.jar
 !gradle-wrapper.jar
 Main.java
+/.idea
+/out
