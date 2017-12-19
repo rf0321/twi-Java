@@ -1,13 +1,13 @@
-package twijava.net;
+package twijava.api;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class ParamSupporter { //OAuthParam supporter class
+public class ParamSupport {
 
-    public static String generateNonce() { //使い捨て暗号ぶっちゃけテキトウな文字でもいい
+    public static String generateNonce() {
         Random rnd = new Random();
         return String.valueOf(123400 + rnd.nextInt(9999999 - 123400));
     }

@@ -1,6 +1,6 @@
-package twijava.net.oauth;
+package twijava.oauth;
 
-import twijava.net.ParamSupporter;
+import twijava.api.ParamSupport;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -9,15 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
+ * This class for oauth param
+ * <p>The param send as a http header</p>
+ * <p>Token description
  * ck:OAuth consumer key
  * cks:OAuth consumer secret
  * at:OAuth access token
  * ats:OAuth access token secret
+ * </p>
  */
 
-public class OAuthUtil {  //Authorization components class
+public class OAuthParamFactory {  //Authorization components class
 
-    public static TreeMap<String, String> getOAuthParam(String ck,String ac) {
+    public static TreeMap<String, String> getOAuthMap(String ck,String ac) {
 
         //Components of need to authorization
 
@@ -26,15 +30,15 @@ public class OAuthUtil {  //Authorization components class
         data.put("oauth_signature_method", "HMAC-SHA1");
         data.put("oauth_timestamp", String.valueOf(Calendar
                 .getInstance(TimeZone.getTimeZone("UTC")).getTime().getTime() / 1000));
-        data.put("oauth_nonce", ParamSupporter.generateNonce());
+        data.put("oauth_nonce", ParamSupport.generateNonce());
         data.put("oauth_token", ac);
         data.put("oauth_version", "1.0");
 
         return data;
     }
 
-    public static String generateSignature(String method,String url,
-                                           TreeMap<String,String>urlParam,TreeMap<String,String>oauthParam)throws Exception{
+    public static String makeSignature(String method,String url,
+                                           TreeMap<String,String>urlParam,TreeMap<String,String>oauthParam){
         TreeMap<String,String>treeMap= new TreeMap<>();
        // StringBuffer paramString=new StringBuffer();
 
@@ -47,25 +51,24 @@ public class OAuthUtil {  //Authorization components class
             }
             paramString.append(param.getKey()+"="+param.getValue());
         }*/
-        String paramStr=ParamSupporter.oAuthParamAppending(treeMap);
+        String paramStr= ParamSupport.oAuthParamAppending(treeMap);
 
         String temp="%s&%s&%s";
 
-        String signature =String.format(temp,
-                ParamSupporter.urlEncode(method),
-                ParamSupporter.urlEncode(url),
-                ParamSupporter.urlEncode(paramStr));
+        return String.format(temp,
+                ParamSupport.urlEncode(method),
+                ParamSupport.urlEncode(url),
+                ParamSupport.urlEncode(paramStr));
 
-        return signature;
     }
 
-    public static String generateBasicCode(String base,String key) throws Exception{
+    public static String makeBasicCode(String base,String key) throws Exception{
 
         SecretKey secretKey;
-        byte[]keyByte=key.getBytes();
-        secretKey=new SecretKeySpec(keyByte,"HmacSHA1");
+        byte[]keyByte = key.getBytes();
+        secretKey = new SecretKeySpec(keyByte,"HmacSHA1");
 
-        Mac mac=Mac.getInstance("HmacSHA1");
+        Mac mac = Mac.getInstance("HmacSHA1");
         mac.init(secretKey);
         byte[]text=base.getBytes(StandardCharsets.US_ASCII);
 
@@ -75,10 +78,10 @@ public class OAuthUtil {  //Authorization components class
     public static String makeOAuthHeader(String signature,TreeMap<String,String>oAuthParam,
                                    String cks,String ats) throws Exception{
 
-        String compoKey=ParamSupporter.urlEncode(cks)+"&"+ParamSupporter.urlEncode(ats);
-        String oauthSignature=generateBasicCode(signature,compoKey);
+        String compoKey = ParamSupport.urlEncode(cks)+"&"+ ParamSupport.urlEncode(ats);
+        String oauthSignature = makeBasicCode(signature,compoKey);
 
-        String encodedSignature=ParamSupporter.urlEncode(oauthSignature);
+        String encodedSignature = ParamSupport.urlEncode(oauthSignature);
 
        //esape data strings
         String authHeaderTemp="OAuth oauth_consumer_key=\"%s\", oauth_nonce=\"%s\", oauth_signature=\"%s\", " +
