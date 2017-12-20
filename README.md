@@ -1,8 +1,10 @@
 [![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=release)](https://travis-ci.org/ItinoseSan/twi-Java)
-![lang-type](https://img.shields.io/badge/languauge-java%208-yellow.svg) [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/release/LICENCE)
+ [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/release/LICENCE)
 
 # Twi-Java
-Twitter API wrapper for Java.Basic system is used by standard library only. Parsing json is used by org.json
+Twitter API wrapper for Java. Main implementation is used by standard library, but this wrapper uses org.json for decode API response json. 
+# Java Version
+This wrapper's current java version is java8
 # Installation
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
