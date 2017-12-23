@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.TreeMap;
 
 
@@ -16,27 +17,27 @@ public class HttpRequest {
     private static final String GET = "GET";
 
 
-    public String post(String requestUrl, String ck, String cks, String ac, String ats,
+    public String post(String requestUrl, List<String>keylist,
                           TreeMap<String, String> data) throws Exception {
         String url = URLsUtil.END_POINT_URL + requestUrl;
 
-        return requestToAPI(POST,url,data,ck,cks,ac,ats);
+        return requestToAPI(POST, url, data, keylist);
     }
 
-    public String get(String requestUrl,String ck,String cks,String ac,String ats,
+    public String get(String requestUrl,List<String> keylist,
                       TreeMap<String,String>data)throws Exception {
         String url = URLsUtil.END_POINT_URL + requestUrl;
 
-        return requestToAPI(GET,url,data,ck,cks,ac,ats);
+        return requestToAPI(GET, url, data, keylist);
     }
 
-    private String requestToAPI(String method, String url, TreeMap<String,String> data, String ck,
-                                String cks, String ac, String ats) throws Exception{
+    private String requestToAPI(String method, String url, TreeMap<String,String>data,
+                                List<String>keylist)throws Exception{
 
-        TreeMap<String, String> oauthMap = OAuthParamFactory.getOAuthMap(ck, ac);
+        TreeMap<String, String> oauthMap = OAuthParamFactory.getOAuthMap(keylist.get(0), keylist.get(2));
 
         String signature = OAuthParamFactory.makeSignature(method, url, data, oauthMap);
-        String oAuthHeader = OAuthParamFactory.makeOAuthHeader(signature, oauthMap, cks, ats);
+        String oAuthHeader = OAuthParamFactory.makeOAuthHeader(signature, oauthMap, keylist.get(1), keylist.get(3));
         String urlwithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
         URL sendurl = new URL(urlwithParam);

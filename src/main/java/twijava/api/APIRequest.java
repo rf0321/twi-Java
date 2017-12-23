@@ -1,23 +1,23 @@
 package twijava.api;
 
 import twijava.http.HttpRequest;
+
+import java.util.List;
 import java.util.TreeMap;
 
 public class APIRequest {
 
-    public String updateStatus(TreeMap<String,String> postData,
-                                      String ck, String cks, String at, String ats){
+    public String updateStatus(TreeMap<String,String> postData, List<String>keylist){
         try {
             HttpRequest httpRequest = new HttpRequest();
-            return httpRequest.post(URLsUtil.USER_UPDATESTATUS_URL, ck, cks, at, ats, postData);
+            return httpRequest.post(URLsUtil.USER_UPDATESTATUS_URL, keylist, postData);
         }
         catch (Exception e){
             return e.toString();
         }
     }
 
-    public String showStatus(String tlFlag,TreeMap<String,String> showData,
-                                    String ck, String cks, String at, String ats){
+    public String showStatus(String tlFlag,TreeMap<String,String> showData, List<String>keylist){
         try{
             String url;
             HttpRequest httpRequest = new HttpRequest();
@@ -28,7 +28,7 @@ public class APIRequest {
             else {
                 url = URLsUtil.USER_TIMELINE_URL;
             }
-            return httpRequest.get(url, ck, cks, at, ats, showData);
+            return httpRequest.get(url, keylist, showData);
         }catch (Exception e){
             return e.toString();
         }
