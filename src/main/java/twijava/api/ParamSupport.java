@@ -11,33 +11,18 @@ public class ParamSupport {
         Random rnd = new Random();
         return String.valueOf(123400 + rnd.nextInt(9999999 - 123400));
     }
-
-    public static String urlEncode(String s){
+    // TwitterAPI cause error standard utf-8 encode. So replace %20 from +
+    public static String twitterUTF8Encode(String params){
         try{
-            return URLEncoder.encode(s,"UTF-8").replace("+","%20");
+            return URLEncoder.encode(params,"UTF-8").replace("+","%20");
         }
         catch (UnsupportedEncodingException e){
-            return s;
+            return e.toString();
         }
     }
     public static String oAuthParamAppending(TreeMap<String, String> param) {
-        // Map<K, V>はEntry<K, V>になりkey=value&key=...の形で文字列に変換される
         return param.entrySet().stream()
                 .map(e -> e.getKey() + "=" + e.getValue())
                 .collect(Collectors.joining("&"));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

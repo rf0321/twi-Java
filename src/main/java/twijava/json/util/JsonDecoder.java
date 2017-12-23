@@ -1,7 +1,9 @@
 package twijava.json.util;
 
 import  org.json.JSONArray;
+import org.json.JSONException;
 import  twijava.json.objects.TwitterJsonObjects;
+
 import java.util.stream.IntStream;
 
 
@@ -19,9 +21,9 @@ public class JsonDecoder {
                                     "User objects:"+ i.getJSONObject(objects.user)+"\n"+
                                     "Tweet content:"+i.getString(objects.text)+"\n"));
         }
-        catch (Exception e){
+        catch (JSONException e){
             String exceptionMessage = e.toString();
-            System.out.println("Parse Exception:"+ exceptionMessage);
+            System.out.println("Parse Exception: "+ exceptionMessage);
         }
     }
 }

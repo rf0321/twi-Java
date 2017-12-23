@@ -16,37 +16,26 @@ public class HttpRequest {
     private static final String GET = "GET";
 
 
-    public String post(String endpointSetter, String ck, String cks, String ac, String ats,
+    public String post(String requestUrl, String ck, String cks, String ac, String ats,
                           TreeMap<String, String> data) throws Exception {
+        String url = URLsUtil.END_POINT_URL + requestUrl;
 
-        String url = URLsUtil.END_POINT_URL + endpointSetter;
-
-        TreeMap<String, String> oauthMap = OAuthParamFactory.getOAuthMap(ck, ac);
-
-        String signature = OAuthParamFactory.makeSignature(POST, url, data, oauthMap);
-        String oAuthHeader = OAuthParamFactory.makeOAuthHeader(signature, oauthMap, cks, ats);
-        String urlwithParam = OAuthParamFactory.makeURLwithParam(url, data);
-
-        URL sendurl = new URL(urlwithParam);
-
-        HttpURLConnection urlConnection = (HttpURLConnection) sendurl.openConnection();
-
-        urlConnection.setRequestProperty("Accept-Language", "ja");
-        urlConnection.setRequestProperty("Authorization", oAuthHeader);
-        urlConnection.setRequestMethod(POST);
-        urlConnection.connect();
-
-        return receiveResponse(urlConnection,POST);
+        return requestToAPI(POST,url,data,ck,cks,ac,ats);
     }
 
-    public String get(String endpointSetter,String ck,String cks,String ac,String ats,
+    public String get(String requestUrl,String ck,String cks,String ac,String ats,
                       TreeMap<String,String>data)throws Exception {
+        String url = URLsUtil.END_POINT_URL + requestUrl;
 
-        String url = URLsUtil.END_POINT_URL + endpointSetter;
+        return requestToAPI(GET,url,data,ck,cks,ac,ats);
+    }
+
+    private String requestToAPI(String method, String url, TreeMap<String,String> data, String ck,
+                                String cks, String ac, String ats) throws Exception{
 
         TreeMap<String, String> oauthMap = OAuthParamFactory.getOAuthMap(ck, ac);
 
-        String signature = OAuthParamFactory.makeSignature(GET, url, data, oauthMap);
+        String signature = OAuthParamFactory.makeSignature(method, url, data, oauthMap);
         String oAuthHeader = OAuthParamFactory.makeOAuthHeader(signature, oauthMap, cks, ats);
         String urlwithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
@@ -56,9 +45,10 @@ public class HttpRequest {
 
         urlConnection.setRequestProperty("Accept-Language", "ja");
         urlConnection.setRequestProperty("Authorization", oAuthHeader);
+        urlConnection.setRequestMethod(method);
+        urlConnection.connect();
 
-        return receiveResponse(urlConnection,GET);
-
+        return receiveResponse(urlConnection,method);
     }
 
     private String receiveResponse(HttpURLConnection connection, String method) throws Exception{
