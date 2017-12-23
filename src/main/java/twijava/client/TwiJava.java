@@ -58,7 +58,7 @@ public class TwiJava{
 
     public String tweet(String text){
         TreeMap<String,String> data = new TreeMap<>();
-        data.put("status", ParamSupport.urlEncode(text));
+        data.put("status", ParamSupport.twitterUTF8Encode(text));
         data.put("trim_user","1");
 
         return apiRequest.updateStatus(data,consumerKey,consumerSecretKey,

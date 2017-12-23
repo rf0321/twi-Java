@@ -32,6 +32,5 @@ public class APIRequest {
         }catch (Exception e){
             return e.toString();
         }
-
     }
 }

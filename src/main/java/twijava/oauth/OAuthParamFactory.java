@@ -56,9 +56,9 @@ public class OAuthParamFactory {  //Authorization components class
         String temp="%s&%s&%s";
 
         return String.format(temp,
-                ParamSupport.urlEncode(method),
-                ParamSupport.urlEncode(url),
-                ParamSupport.urlEncode(paramStr));
+                ParamSupport.twitterUTF8Encode(method),
+                ParamSupport.twitterUTF8Encode(url),
+                ParamSupport.twitterUTF8Encode(paramStr));
 
     }
 
@@ -78,10 +78,10 @@ public class OAuthParamFactory {  //Authorization components class
     public static String makeOAuthHeader(String signature,TreeMap<String,String>oAuthParam,
                                    String cks,String ats) throws Exception{
 
-        String compoKey = ParamSupport.urlEncode(cks)+"&"+ ParamSupport.urlEncode(ats);
+        String compoKey = ParamSupport.twitterUTF8Encode(cks)+"&"+ ParamSupport.twitterUTF8Encode(ats);
         String oauthSignature = makeBasicCode(signature,compoKey);
 
-        String encodedSignature = ParamSupport.urlEncode(oauthSignature);
+        String encodedSignature = ParamSupport.twitterUTF8Encode(oauthSignature);
 
        //esape data strings
         String authHeaderTemp="OAuth oauth_consumer_key=\"%s\", oauth_nonce=\"%s\", oauth_signature=\"%s\", " +
