@@ -20,6 +20,7 @@ public class ParamSupport {
             return e.toString();
         }
     }
+
     public static String oAuthParamAppending(TreeMap<String, String> param) {
         return param.entrySet().stream()
                 .map(e -> e.getKey() + "=" + e.getValue())
