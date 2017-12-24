@@ -41,6 +41,7 @@ public class HttpRequest {
 
         String signature = OAuthSignatureFactory.makeSignature(method, url, data, oauthMap);
         String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap, keylist.get(1),keylist.get(3));
+        String urlwithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
         URL sendurl = new URL(urlwithParam);
 
