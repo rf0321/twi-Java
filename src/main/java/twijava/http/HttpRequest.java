@@ -1,7 +1,10 @@
 package twijava.http;
 
 import twijava.api.URLsUtil;
+import twijava.oauth.OAuthHeaderFactory;
+import twijava.oauth.OAuthMapFactory;
 import twijava.oauth.OAuthParamFactory;
+import twijava.oauth.OAuthSignatureFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -34,10 +37,10 @@ public class HttpRequest {
     private String requestToAPI(String method, String url, TreeMap<String,String>data,
                                 List<String>keylist)throws Exception{
 
-        TreeMap<String, String> oauthMap = OAuthParamFactory.getOAuthMap(keylist.get(0),keylist.get(2));
+        TreeMap<String, String> oauthMap = OAuthMapFactory.getOAuthMap(keylist.get(0),keylist.get(2));
 
-        String signature = OAuthParamFactory.makeSignature(method, url, data, oauthMap);
-        String oAuthHeader = OAuthParamFactory.makeOAuthHeader(signature, oauthMap, keylist.get(1),keylist.get(3));
+        String signature = OAuthSignatureFactory.makeSignature(method, url, data, oauthMap);
+        String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap, keylist.get(1),keylist.get(3));
         String urlwithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
         URL sendurl = new URL(urlwithParam);

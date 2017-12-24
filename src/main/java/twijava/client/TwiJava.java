@@ -1,6 +1,13 @@
 /**
  * TwiJava class
  *<p>This class is client side. so, method name is simply</p>
+ * /**
+ * <p>Token description
+ * ck:OAuth consumer key
+ * cks:OAuth consumer secret
+ * at:OAuth access token
+ * ats:OAuth access token secret
+ * </p>
  */
 package twijava.client;
 
