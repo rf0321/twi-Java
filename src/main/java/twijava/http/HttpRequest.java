@@ -24,7 +24,7 @@ public class HttpRequest {
                           TreeMap<String, String> data) throws Exception {
         String url = URLsUtil.END_POINT_URL + requestUrl;
 
-        return requestToAPI(POST,url,data,keylist);
+        return requestToAPI(POST, url, data, keylist);
     }
 
     public String get(String requestUrl,List<String> keylist,
@@ -41,7 +41,6 @@ public class HttpRequest {
 
         String signature = OAuthSignatureFactory.makeSignature(method, url, data, oauthMap);
         String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap, keylist.get(1),keylist.get(3));
-        String urlwithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
         URL sendurl = new URL(urlwithParam);
 
