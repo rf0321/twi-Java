@@ -30,7 +30,6 @@ public class HttpRequest {
             urlConnection.setRequestProperty("Authorization", oAuthHeader);
             urlConnection.setRequestMethod(method);
             urlConnection.connect();
-
             HttpResponseHandler.getStatusMessage(urlConnection);
 
             return HttpResponseHandler.receiveResponse(urlConnection);
