@@ -9,17 +9,10 @@ public class OAuthSignatureFactory {
     public static String makeSignature(String method, String url,
                                        TreeMap<String,String> urlParam, TreeMap<String,String>oauthParam){
         TreeMap<String,String>treeMap= new TreeMap<>();
-        // StringBuffer paramString=new StringBuffer();
 
         treeMap.putAll(urlParam);
         treeMap.putAll(oauthParam);
 
-        /*for(Map.Entry<String,String>param:treeMap.entrySet()){
-            if(!param.equals(treeMap.firstEntry())){
-                paramString.append("&");
-            }
-            paramString.append(param.getKey()+"="+param.getValue());
-        }*/
         String paramStr= ParamSupport.oAuthParamAppending(treeMap);
 
         String temp="%s&%s&%s";

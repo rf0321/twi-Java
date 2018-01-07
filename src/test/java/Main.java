@@ -1,16 +1,13 @@
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
+import twijava.config.TokenBuilder;
 
 public class Main {
-
-  /* public static void main(String[]arg){
-        KeyFactory factory = new KeyFactory();
-       // String dump = factory.keysList().get(2);
-       // System.out.println(dump);
+    private static void initialize(){
+        TokenbuilderTest.somekey = "aaaaaaaa";
     }
-
-    public static class KeyFactory {
-    }*/
+    public static void main(String[]args) throws Exception{
+        initialize();
+        TokenbuilderTest tokenbuilderTest = new TokenbuilderTest();
+        tokenbuilderTest.printKey();
+    }
 }

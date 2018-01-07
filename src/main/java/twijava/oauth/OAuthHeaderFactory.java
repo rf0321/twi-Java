@@ -3,6 +3,7 @@ package twijava.oauth;
 import twijava.api.ParamSupport;
 
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class OAuthHeaderFactory {
 
@@ -18,6 +19,8 @@ public class OAuthHeaderFactory {
         String authHeaderTemp="OAuth oauth_consumer_key=\"%s\", oauth_nonce=\"%s\", oauth_signature=\"%s\", " +
                 "oauth_signature_method=\"%s\", oauth_timestamp=\"%s\", oauth_token=\"%s\", oauth_version=\"%s\"";
 
+       // String headerString = "OAuth " + oAuthParam.entrySet().stream()
+         //       .map(e -> String.format("%s=\"%s\","));
         return String.format(authHeaderTemp,
                 oAuthParam.get("oauth_consumer_key"),
                 oAuthParam.get("oauth_nonce"),
@@ -27,5 +30,5 @@ public class OAuthHeaderFactory {
                 oAuthParam.get("oauth_token"),
                 oAuthParam.get("oauth_version"));
     }
-
 }
+

@@ -1,36 +1,35 @@
 package twijava.api;
 
-import twijava.http.HttpRequest;
+import twijava.http.requests.TwitterGetTimeLineRequest;
+import twijava.http.requests.TwitterPostTweetRequest;
 
 import java.util.List;
 import java.util.TreeMap;
 
-public class APIRequest {
+public class APIRequest implements APIRequestComponents{
 
-    public String updateStatus(TreeMap<String,String> postData, List<String>keylist){
-        try {
-            HttpRequest httpRequest = new HttpRequest();
-            return httpRequest.post(URLsUtil.USER_UPDATESTATUS_URL, keylist, postData);
-        }
-        catch (Exception e){
-            return e.toString();
-        }
+    @Override
+    public TwitterPostTweetRequest twitterTweet(){
+        return new TwitterPostTweetRequest();
     }
 
-    public String showStatus(String tlFlag,TreeMap<String,String> showData, List<String>keylist){
-        try{
-            String url;
-            HttpRequest httpRequest = new HttpRequest();
+    @Override
+    public TwitterGetTimeLineRequest twitterTimeLine(){
+        return new TwitterGetTimeLineRequest();
+    }
 
-            if(tlFlag.equals("home")){
-                url = URLsUtil.TIMELINE_URL;
-            }
-            else {
-                url = URLsUtil.USER_TIMELINE_URL;
-            }
-            return httpRequest.get(url, keylist, showData);
-        }catch (Exception e){
-            return e.toString();
-        }
+    public String updateStatus(TreeMap<String,String> postData, List<String>keylist){
+
+        return twitterTweet().updateStatusRequest(URLsUtil.USER_UPDATESTATUS_URL,keylist,postData);
+    }
+
+    public String showHomeStatus(TreeMap<String,String> showData, List<String>keylist) {
+
+        return twitterTimeLine().showStatusRequest(URLsUtil.TIMELINE_URL, keylist,showData);
+    }
+
+    public String showUserStatus(TreeMap<String,String>showData, List<String>keylist){
+
+        return twitterTimeLine().showStatusRequest(URLsUtil.USER_TIMELINE_URL, keylist, showData);
     }
 }
