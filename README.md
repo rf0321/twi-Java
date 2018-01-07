@@ -19,12 +19,12 @@ Right click jar->Select "Add as Lbrary"
 # How to use
 Input your twitter api tokens
 ```java
- TwiJava twitter = new TwiJava.TokenInitialize()
-                .setConsumerKey("Your TwitterAPI ConsumerKey")
-                .setConsumerSecretKey("Your TwitterAPI ConsumerKeySecret")
-                .setAccessToken("Your TwitterAPI AccessToken")
-                .setAccessTokenSecret("Your TwitterAPI AccessTokenSecret")
-                .buildTokens();
+TwiJava twitter = new TwiJava();
+twitter.setConsumerKey("XXXXXX");
+twitter.setConsumerSecretKey("XXXXXX");
+twitter.setAccessToken("XXXXXX");
+twitter.setAccessTokenSecret("XXXXXX");
+
 ```
 Tweet
 ```java
