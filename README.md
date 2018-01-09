@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=release)](https://travis-ci.org/ItinoseSan/twi-Java)
+[![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=0109)](https://travis-ci.org/ItinoseSan/twi-Java)
  [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/release/LICENCE)
-
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 # Twi-Java
 Twitter API wrapper for Java. Main implementation is used by standard library, but this wrapper uses org.json for decode API response json. 
 # Java Version
@@ -19,12 +19,11 @@ Right click jar->Select "Add as Lbrary"
 # How to use
 Input your twitter api tokens
 ```java
- TwiJava twitter = new TwiJava.TokenInitialize()
-                .setConsumerKey("Your TwitterAPI ConsumerKey")
-                .setConsumerSecretKey("Your TwitterAPI ConsumerKeySecret")
-                .setAccessToken("Your TwitterAPI AccessToken")
-                .setAccessTokenSecret("Your TwitterAPI AccessTokenSecret")
-                .buildTokens();
+ TwiJava twitter = new TwiJava();
+         twitter.setConsumerKey("consumerkey");
+         twitter.setConsumerSecretKey("consumerSecret");
+         twitter.setAccessToken("accessToken");
+         twitter.setAccessTokenSecret("accessTokenSecret");
 ```
 Tweet
 ```java
