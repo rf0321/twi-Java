@@ -12,14 +12,6 @@ This wrapper's current java version is java8
 # Installation
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
-#### Gradle
-```build.gradle
-dependencies {
-    compile 'twi-java1.0.2'
-}
-```
-#### Standard version(IntelliJ,AndroidStudio)
-Right click jar->Select "Add as Lbrary"
 # How to use
 Input your twitter api tokens
 ```java
