@@ -1,28 +1,30 @@
 package twijava.http.requests;
 
-import twijava.api.URLsUtil;
-import twijava.http.HttpRequest;
-import twijava.http.HttpRequestComponents;
+import twijava.client.TwitterApiURLs;
+import twijava.http.core.HttpRequest;
+import twijava.http.HttpRequestInterface;
 
 import java.util.List;
 import java.util.TreeMap;
 
-public class TwitterGetTimeLineRequest implements HttpRequestComponents {
+public class TwitterGetTimeLineRequest implements HttpRequestInterface {
 
     @Override
     public String getMethod(){
+
         return "GET";
     }
 
     @Override
     public HttpRequest http(){
+
         return new HttpRequest();
     }
 
-    public String showStatusRequest(String requestUrl,List<String> keylist, TreeMap<String,String> data){
+    public String getStatusRequest(String requestUrl,List<String> keylist, TreeMap<String,String> dataForGet){
 
-        String url = URLsUtil.END_POINT_URL + requestUrl;
+        String url = TwitterApiURLs.END_POINT_URL + requestUrl;
 
-        return http().requestToAPI(getMethod(), url, data, keylist);
+        return http().requestToAPI(getMethod(), url, dataForGet, keylist);
     }
 }

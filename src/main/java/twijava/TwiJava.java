@@ -13,9 +13,10 @@ package twijava;
 
 import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
-import twijava.api.APIRequest;
+import twijava.client.requests.TwitterAPIRequests;
+import twijava.encode.ParamEncoder;
 import twijava.json.util.JsonDecoder;
-import twijava.api.ParamSupport;
+import twijava.oauth.OAuthSupportParamFactory;
 
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class TwiJava{
     private TreeMap<String,String>updateStatusContext(String text){
 
         TreeMap<String,String> context = new TreeMap<>();
-        context.put("status", ParamSupport.twitterUTF8Encode(text));
+        context.put("status", ParamEncoder.encode(text));
         context.put("trim_user","1");
 
         return context;
@@ -95,9 +96,9 @@ public class TwiJava{
         return String.valueOf(i);
     }
 
-    private APIRequest apiRequest(){
+    private TwitterAPIRequests apiRequest(){
 
-        return new APIRequest();
+        return new TwitterAPIRequests();
     }
 
     public String tweet(String text){
@@ -109,7 +110,7 @@ public class TwiJava{
 
         String count = counterCastToString(counter);
 
-        String json = apiRequest().showHomeStatus(contextForTimeLine(count),apikeysList());
+        String json = apiRequest().homeStatus(contextForTimeLine(count),apikeysList());
 
         JsonDecoder.decode(json);
     }
@@ -118,7 +119,7 @@ public class TwiJava{
 
         String count = counterCastToString(counter);
 
-        String json = apiRequest().showUserStatus(contextForTimeLine(count),apikeysList());
+        String json = apiRequest().userStatus(contextForTimeLine(count),apikeysList());
 
         JsonDecoder.decode(json);
     }

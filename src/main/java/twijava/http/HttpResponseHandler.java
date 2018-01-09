@@ -6,19 +6,6 @@ import java.net.HttpURLConnection;
 
 public class HttpResponseHandler {
 
-    public static void getStatusMessage(HttpURLConnection connection) throws Exception{
-
-        int httpStatusCode = connection.getResponseCode();
-
-        if(httpStatusCode == HttpURLConnection.HTTP_CREATED){
-            System.out.println("HttpStatusMessage: code201 POST Request Succeeded");
-        }
-        else if(httpStatusCode == HttpURLConnection.HTTP_ACCEPTED){
-            System.out.println("HttpStatusMessage: code200 GET Requst Succeeded");
-            System.out.println("===============================================");
-        }
-    }
-
     public static String receiveResponse(HttpURLConnection connection) throws Exception{
 
         InputStreamReader isr = connection.getResponseCode() == HttpURLConnection.HTTP_OK ?
@@ -26,13 +13,20 @@ public class HttpResponseHandler {
                 : new InputStreamReader(connection.getErrorStream());
 
         BufferedReader reader = new BufferedReader(isr);
-        StringBuilder sb = new StringBuilder();
+        StringBuilder responseJson = new StringBuilder();
         String line;
 
+        int code = connection.getResponseCode();
+
         while ((line = reader.readLine()) != null) {
-            System.out.println(sb.append(line));
+            if(code == HttpURLConnection.HTTP_OK) {
+                System.out.println("HttpRequest accepted");
+            }
+            System.out.print("Response json:");
+            System.out.println(responseJson.append(line)+"\n");
         }
         reader.close();
-        return sb.toString();
+
+        return responseJson.toString();
     }
 }

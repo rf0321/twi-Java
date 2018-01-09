@@ -1,6 +1,6 @@
 package twijava.oauth;
 
-import twijava.api.ParamSupport;
+import twijava.encode.ParamEncoder;
 
 import java.util.TreeMap;
 
@@ -13,14 +13,13 @@ public class OAuthSignatureFactory {
         treeMap.putAll(urlParam);
         treeMap.putAll(oauthParam);
 
-        String paramStr= ParamSupport.oAuthParamAppending(treeMap);
+        String paramStr= OAuthSupportParamFactory.oAuthParamAppending(treeMap);
 
         String temp="%s&%s&%s";
 
         return String.format(temp,
-                ParamSupport.twitterUTF8Encode(method),
-                ParamSupport.twitterUTF8Encode(url),
-                ParamSupport.twitterUTF8Encode(paramStr));
-
+                ParamEncoder.encode(method),
+                ParamEncoder.encode(url),
+                ParamEncoder.encode(paramStr));
     }
 }
