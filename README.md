@@ -2,7 +2,11 @@
  [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/release/LICENCE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 # Twi-Java
-Twitter API wrapper for Java. Main implementation is used by standard library, but this wrapper uses org.json for decode API response json. 
+Twitter API wrapper for Java. 
+
+Main API wrapping is implemented by standard library. 
+
+Json Decoding is implmented by org.json.
 # Java Version
 This wrapper's current java version is java8
 # Installation
