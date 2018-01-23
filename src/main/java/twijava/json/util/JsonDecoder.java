@@ -19,7 +19,7 @@ public class JsonDecoder {
                     .mapToObj(i -> jsonArray.getJSONObject(i))
                     .forEach(i -> System.out.println(
                             "Posted:"+i.getString(objects.created_at)+"\n"+
-                                    "User_id:"+ i.getJSONObject(objects.user)+"\n"+
+                                    "User_id:"+ i.getJSONObject(objects.user).getInt("id")+"\n"+
                                     "Tweet:"+i.getString(objects.text)+"\n"));
         }
         catch (JSONException e){

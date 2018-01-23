@@ -15,14 +15,14 @@ import java.util.TreeMap;
 
 public class HttpRequest {
 
-    public String requestToAPI(String method, String url, TreeMap<String,String>data,List<String>keylist){
+    public String requestToAPI(String method, String url, TreeMap<String,String>data,TreeMap<String,String> keyMap){
 
         try {
 
-            TreeMap<String, String> oauthMap = OAuthMapFactory.getOAuthMap(keylist.get(0), keylist.get(2));
+            TreeMap<String, String> oauthMap = OAuthMapFactory.getOAuthMap(keyMap.get("ck"), keyMap.get("ac"));
 
             String signature = OAuthSignatureFactory.makeSignature(method, url, data, oauthMap);
-            String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap, keylist.get(1), keylist.get(3));
+            String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap, keyMap.get("cks"), keyMap.get("ats"));
             String urlWithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
             URL sendUrl = new URL(urlWithParam);

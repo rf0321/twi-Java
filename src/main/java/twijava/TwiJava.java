@@ -1,11 +1,12 @@
 /**
  * TwiJava class
- *<p>This class is client side. so, method name is simply</p>
+ *<p>This class is client</p>
  * /**
  * <p>Token description
+ * Below name is key of treeMap for API key
  * ck:OAuth consumer key
  * cks:OAuth consumer secret
- * at:OAuth access token
+ * ac:OAuth access token
  * ats:OAuth access token secret
  * </p>
  */
@@ -15,11 +16,12 @@ import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
 import twijava.client.requests.TwitterAPIRequests;
 import twijava.encode.ParamEncoder;
-import twijava.json.util.JsonDecoder;
-import twijava.oauth.OAuthSupportParamFactory;
+
+
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -59,13 +61,13 @@ public class TwiJava{
     }
 
     @Getter
-    private List<String> apikeysList() {
+    private TreeMap<String,String> apikeysMap(){
 
-        List<String> keys = new ArrayList<>();
-        keys.add(consumerKey);
-        keys.add(consumerSecretKey);
-        keys.add(accessToken);
-        keys.add(accessTokenSecret);
+        TreeMap<String,String> keys = new TreeMap<>();
+        keys.put("ck",consumerKey);
+        keys.put("cks",consumerSecretKey);
+        keys.put("ac",accessToken);
+        keys.put("ats",accessTokenSecret);
 
         return keys;
     }
@@ -101,26 +103,18 @@ public class TwiJava{
         return new TwitterAPIRequests();
     }
 
-    public String tweet(String text){
+    public void updateStatus(String text){
 
-        return apiRequest().updateStatus(updateStatusContext(text), apikeysList());
+        apiRequest().updateStatus(updateStatusContext(text), apikeysMap());
     }
 
-    public void getHomeTimeLine(int counter) {
+    public String getHomeTimeLine(int counter) {
 
-        String count = counterCastToString(counter);
-
-        String json = apiRequest().homeStatus(contextForTimeLine(count),apikeysList());
-
-        JsonDecoder.decode(json);
+        return apiRequest().homeStatus(contextForTimeLine(counterCastToString(counter)), apikeysMap());
     }
 
-    public void getUserTimeLine(int counter){
+    public String getUserTimeLine(int counter){
 
-        String count = counterCastToString(counter);
-
-        String json = apiRequest().userStatus(contextForTimeLine(count),apikeysList());
-
-        JsonDecoder.decode(json);
+        return apiRequest().userStatus(contextForTimeLine(counterCastToString(counter)),apikeysMap());
     }
 }

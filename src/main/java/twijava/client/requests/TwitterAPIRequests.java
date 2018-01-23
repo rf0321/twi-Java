@@ -20,18 +20,18 @@ public class TwitterAPIRequests implements APIRequestInterface {
         return new TwitterPostTweetRequest();
     }
 
-    public String updateStatus(TreeMap<String,String> dataForPost, List<String>keylist){
+    public String updateStatus(TreeMap<String,String> dataForPost, TreeMap<String,String>keyMap){
 
-        return twitterTweet().updateStatusRequest(TwitterApiURLs.USER_UPDATESTATUS_URL,keylist,dataForPost);
+        return twitterTweet().updateStatusRequest(TwitterApiURLs.USER_UPDATESTATUS_URL,keyMap,dataForPost);
     }
 
-    public String homeStatus(TreeMap<String,String> dataForGet, List<String>keylist) {
+    public String homeStatus(TreeMap<String,String> dataForGet, TreeMap<String,String>keyMap) {
 
-        return twitterTimeLine().getStatusRequest(TwitterApiURLs.HOME_TIMELINE_URL, keylist,dataForGet);
+        return twitterTimeLine().getStatusRequest(TwitterApiURLs.HOME_TIMELINE_URL,keyMap,dataForGet);
     }
 
-    public String userStatus(TreeMap<String,String> dataForGet, List<String>keylist){
+    public String userStatus(TreeMap<String,String> dataForGet, TreeMap<String,String>keyMap){
 
-        return twitterTimeLine().getStatusRequest(TwitterApiURLs.USER_TIMELINE_URL, keylist,dataForGet);
+        return twitterTimeLine().getStatusRequest(TwitterApiURLs.USER_TIMELINE_URL,keyMap,dataForGet);
     }
 }

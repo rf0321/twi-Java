@@ -21,10 +21,10 @@ public class TwitterPostTweetRequest implements HttpRequestInterface {
         return new HttpRequest();
     }
 
-    public String updateStatusRequest(String requestUrl, List<String> keylist, TreeMap<String, String> data) {
+    public String updateStatusRequest(String requestUrl, TreeMap<String,String>keyMap, TreeMap<String, String> data) {
 
         String url = TwitterApiURLs.END_POINT_URL + requestUrl;
 
-        return http().requestToAPI(getMethod(), url, data, keylist);
+        return http().requestToAPI(getMethod(), url, data, keyMap);
     }
 }
