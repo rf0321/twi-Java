@@ -21,10 +21,10 @@ public class TwitterGetTimeLineRequest implements HttpRequestInterface {
         return new HttpRequest();
     }
 
-    public String getStatusRequest(String requestUrl,List<String> keylist, TreeMap<String,String> dataForGet){
+    public String getStatusRequest(String requestUrl, TreeMap<String,String>keyMap, TreeMap<String,String> dataForGet){
 
         String url = TwitterApiURLs.END_POINT_URL + requestUrl;
 
-        return http().requestToAPI(getMethod(), url, dataForGet, keylist);
+        return http().requestToAPI(getMethod(), url, dataForGet, keyMap);
     }
 }
