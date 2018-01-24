@@ -12,7 +12,7 @@ This wrapper's current java version is java8
 # Installation
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
-# How to use
+# Usage
 Input your twitter api tokens
 ```java
  TwiJava twitter = new TwiJava();
@@ -33,6 +33,13 @@ Get home Timeline
 ```java
 twitter.getHomeTimeLine(100);
 ```
+
+## Json decode(this is optional mini function)
+```java
+String json = twitter.getHomeTimeLine(50);
+JsonDecoder.decode(json);
+```
+
 # Contributing
 I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Donation
