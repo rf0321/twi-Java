@@ -2,6 +2,7 @@ package twijava.oauth;
 
 import twijava.encode.ParamEncoder;
 
+import java.net.URLEncoder;
 import java.util.TreeMap;
 
 public class OAuthHeaderFactory {

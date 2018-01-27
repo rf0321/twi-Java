@@ -17,12 +17,6 @@ import jdk.nashorn.internal.objects.annotations.Setter;
 import twijava.client.requests.TwitterAPIRequests;
 import twijava.encode.ParamEncoder;
 
-
-
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.TreeMap;
 
 
@@ -73,23 +67,41 @@ public class TwiJava{
     }
 
     @Getter
-    private TreeMap<String,String>updateStatusContext(String text){
+    private TreeMap<String,String>updateStatusContent(String text){
 
-        TreeMap<String,String> context = new TreeMap<>();
-        context.put("status", ParamEncoder.encode(text));
-        context.put("trim_user","1");
+        TreeMap<String,String> content = new TreeMap<>();
+        content.put("status", ParamEncoder.encode(text));
+        content.put("trim_user","1");
 
-        return context;
+        return content;
     }
 
     @Getter
-    private TreeMap<String,String>contextForTimeLine(String counter){
+    private TreeMap<String,String>deleteStatusContent(String idStr){
 
-        TreeMap<String, String> context = new TreeMap<>();
-        context.put("count", counter);
-        context.put("trim_user", "1");
+        TreeMap<String,String> content = new TreeMap<>();
+        content.put("id",idStr);
 
-        return context;
+        return content;
+    }
+
+    @Getter
+    private TreeMap<String,String>timeLineContent(String counter){
+
+        TreeMap<String, String> content = new TreeMap<>();
+        content.put("count", counter);
+        content.put("trim_user", "1");
+
+        return content;
+    }
+
+    @Getter
+    private TreeMap<String,String> searchContent(String query,String count) {
+
+        TreeMap<String, String> content = new TreeMap<>();
+        content.put("q", ParamEncoder.encode(query));
+        content.put("count", count);
+        return content;
     }
 
     @Getter
@@ -103,18 +115,28 @@ public class TwiJava{
         return new TwitterAPIRequests();
     }
 
-    public void updateStatus(String text){
+    public void tweet(String text){
 
-        apiRequest().updateStatus(updateStatusContext(text), apikeysMap());
+        apiRequest().updateStatus(updateStatusContent(text), apikeysMap());
+    }
+
+    public void deleteTweet(String idStr){
+
+        apiRequest().deleteStatus(deleteStatusContent(idStr),apikeysMap());
     }
 
     public String getHomeTimeLine(int counter) {
 
-        return apiRequest().homeStatus(contextForTimeLine(counterCastToString(counter)), apikeysMap());
+        return apiRequest().homeStatus(timeLineContent(counterCastToString(counter)), apikeysMap());
     }
 
     public String getUserTimeLine(int counter){
 
-        return apiRequest().userStatus(contextForTimeLine(counterCastToString(counter)),apikeysMap());
+        return apiRequest().userStatus(timeLineContent(counterCastToString(counter)),apikeysMap());
+    }
+
+    public String searchTweet(String word, int count){
+
+        return apiRequest().searchStatus(searchContent(word,counterCastToString(count)),apikeysMap());
     }
 }

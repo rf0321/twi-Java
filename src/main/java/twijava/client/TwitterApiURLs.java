@@ -10,9 +10,11 @@ public class TwitterApiURLs {
     public static final String HOME_TIMELINE_URL     = ("statuses/home_timeline.json");
     public static final String USER_TIMELINE_URL     = ("statuses/user_timeline.json");
     public static final String USER_UPDATESTATUS_URL = ("statuses/update.json");
+    public static final String USER_DESTROY_URL      = ("statuses/destroy/");
+    public static final String SEACH_URL             = ("search/tweets.json");
 
     /*
-    private static final String SEACH_URL="search/tweets.json";
+    public static final String USER_CREATEMESSAGE_URL= ("direct_messages/events/new.json");
     private static final String FOLLOWERS_URL="followers/list.json";
     private static final String FOLLOW_URL="friends/list.json";
      */

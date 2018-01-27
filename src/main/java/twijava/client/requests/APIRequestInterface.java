@@ -1,11 +1,11 @@
 package twijava.client.requests;
 
 import twijava.http.requests.TwitterGetTimeLineRequest;
-import twijava.http.requests.TwitterPostTweetRequest;
+import twijava.http.requests.TwitterRelativeTweetRequest;
 
 public interface APIRequestInterface {
     // Request instance
-    TwitterPostTweetRequest twitterTweet();
+    TwitterRelativeTweetRequest twitterTweet();
 
     TwitterGetTimeLineRequest twitterTimeLine();
 }
