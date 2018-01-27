@@ -3,6 +3,7 @@ package twijava.json.util;
 import  org.json.JSONArray;
 import  org.json.JSONException;
 
+import org.json.JSONObject;
 import  twijava.json.objects.TwitterJsonObjects;
 
 import java.util.stream.IntStream;
@@ -11,7 +12,7 @@ import java.util.stream.IntStream;
 
 public class JsonDecoder {
 
-    public static void decode(String responejson) {
+    public static void decodeTimeLine(String responejson) {
         TwitterJsonObjects objects=new TwitterJsonObjects();
         try{
             JSONArray jsonArray=new JSONArray(responejson);
@@ -23,9 +24,13 @@ public class JsonDecoder {
                                     "Tweet:"+i.getString(objects.text)+"\n"));
         }
         catch (JSONException e){
-            String exceptionMessage = e.toString();
-            System.out.println("Parse Exception: "+ exceptionMessage);
+            sayError();
         }
+    }
+
+    private static void sayError(){
+
+        System.out.println("ParseError:You might be wrong decode method");
     }
 }
 /*for(int i=0; i<jsonArray.length();i++) {

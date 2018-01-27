@@ -25,6 +25,8 @@ public class TwitterPostTweetRequest implements HttpRequestInterface {
 
         String url = TwitterApiURLs.END_POINT_URL + requestUrl;
 
+        System.out.println("request url:"+url);
+
         return http().requestToAPI(getMethod(), url, data, keyMap);
     }
 }

@@ -5,7 +5,6 @@ import twijava.http.requests.TwitterGetTimeLineRequest;
 import twijava.http.requests.TwitterPostTweetRequest;
 
 
-import java.util.List;
 import java.util.TreeMap;
 
 public class TwitterAPIRequests implements APIRequestInterface {
@@ -33,5 +32,10 @@ public class TwitterAPIRequests implements APIRequestInterface {
     public String userStatus(TreeMap<String,String> dataForGet, TreeMap<String,String>keyMap){
 
         return twitterTimeLine().getStatusRequest(TwitterApiURLs.USER_TIMELINE_URL,keyMap,dataForGet);
+    }
+
+    public String searchStatus(TreeMap<String,String>dataForGet,TreeMap<String,String>keyMap){
+
+        return twitterTimeLine().getStatusRequest(TwitterApiURLs.SEACH_URL,keyMap,dataForGet);
     }
 }
