@@ -25,6 +25,14 @@ Tweet
 ```java
 twitter.tweet("Hello World");
 ```
+Delete Tweet
+```java
+twitter.deleteTweet("your tweet id_str");
+```
+Search Tweet
+```java
+twitter.searchTweet("Hello");
+```
 Get user Timeline
 ```java
 twitter.getUserTimeLine(100); //Integer is tweet count of timeline.You can change this
