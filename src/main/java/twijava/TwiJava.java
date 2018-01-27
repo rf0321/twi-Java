@@ -77,6 +77,15 @@ public class TwiJava{
     }
 
     @Getter
+    private TreeMap<String,String>deleteStatusContent(String idStr){
+
+        TreeMap<String,String> content = new TreeMap<>();
+        content.put("id",idStr);
+
+        return content;
+    }
+
+    @Getter
     private TreeMap<String,String>timeLineContent(String counter){
 
         TreeMap<String, String> content = new TreeMap<>();
@@ -106,9 +115,14 @@ public class TwiJava{
         return new TwitterAPIRequests();
     }
 
-    public void updateStatus(String text){
+    public void tweet(String text){
 
         apiRequest().updateStatus(updateStatusContent(text), apikeysMap());
+    }
+
+    public void deleteTweet(String idStr){
+
+        apiRequest().deleteStatus(deleteStatusContent(idStr),apikeysMap());
     }
 
     public String getHomeTimeLine(int counter) {

@@ -4,10 +4,9 @@ import twijava.client.TwitterApiURLs;
 import twijava.http.core.HttpRequest;
 import twijava.http.HttpRequestInterface;
 
-import java.util.List;
 import java.util.TreeMap;
 
-public class TwitterPostTweetRequest implements HttpRequestInterface {
+public class TwitterRelativeTweetRequest implements HttpRequestInterface {
 
     @Override
     public String getMethod(){

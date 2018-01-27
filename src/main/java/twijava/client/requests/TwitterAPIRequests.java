@@ -2,7 +2,7 @@ package twijava.client.requests;
 
 import twijava.client.TwitterApiURLs;
 import twijava.http.requests.TwitterGetTimeLineRequest;
-import twijava.http.requests.TwitterPostTweetRequest;
+import twijava.http.requests.TwitterRelativeTweetRequest;
 
 
 import java.util.TreeMap;
@@ -15,13 +15,20 @@ public class TwitterAPIRequests implements APIRequestInterface {
     }
 
     @Override
-    public TwitterPostTweetRequest twitterTweet(){
-        return new TwitterPostTweetRequest();
+    public TwitterRelativeTweetRequest twitterTweet(){
+        return new TwitterRelativeTweetRequest();
     }
 
     public String updateStatus(TreeMap<String,String> dataForPost, TreeMap<String,String>keyMap){
 
         return twitterTweet().updateStatusRequest(TwitterApiURLs.USER_UPDATESTATUS_URL,keyMap,dataForPost);
+    }
+
+    public String deleteStatus(TreeMap<String,String>dataForPost, TreeMap<String,String>keyMap) {
+
+        String idStr = dataForPost.get("id");
+
+        return twitterTweet().updateStatusRequest(TwitterApiURLs.USER_DESTROY_URL+idStr+".json",keyMap,dataForPost);
     }
 
     public String homeStatus(TreeMap<String,String> dataForGet, TreeMap<String,String>keyMap) {
