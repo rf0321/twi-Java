@@ -35,7 +35,7 @@ twitter.searchTweet("Hello");
 ```
 Get user Timeline
 ```java
-twitter.getUserTimeLine(100); //Integer is tweet count of timeline.You can change this
+twitter.getUserTimeLine(100); 
 ```
 Get home Timeline
 ```java
