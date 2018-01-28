@@ -36,12 +36,12 @@ twitter.searchTweet("Hello");
 Custom Tweet
 
 If you use optional param
-```
+```java
  TreeMap<String,String> keyMap = new TreeMap<>();
-        keyMap.put("ck",ck);
-        keyMap.put("cks",cks);
-        keyMap.put("ac",ac);
-        keyMap.put("ats",ats);
+        keyMap.put("ck","xxxxx");
+        keyMap.put("cks","xxxxx");
+        keyMap.put("ac","xxxxx");
+        keyMap.put("ats","xxxxx");
 
 
         TreeMap<String,String> customSearch = new TreeMap<>();
