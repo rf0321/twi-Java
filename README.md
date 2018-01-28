@@ -33,7 +33,7 @@ Search Tweet
 ```java
 twitter.searchTweet("Hello");
 ```
-Custom Tweet
+Custom Search Tweet
 
 If you use optional param
 ```java
