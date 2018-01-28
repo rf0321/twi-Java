@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -5,6 +7,10 @@ import java.nio.charset.StandardCharsets;
 
 public class TestHttpRequest
 {
+    @Test
+    public void doTest()throws Exception{
+        post("hoge","hoge");
+    }
     public String post(String authheader,String url)throws IOException{
         URL urls=new URL(url);
         HttpURLConnection connection=(HttpURLConnection)urls.openConnection();
