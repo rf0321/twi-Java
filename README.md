@@ -13,64 +13,7 @@ This wrapper's current java version is java8
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
 # Usage
-Input your twitter api tokens
-```java
- TwiJava twitter = new TwiJava();
-         twitter.setConsumerKey("consumerkey");
-         twitter.setConsumerSecretKey("consumerSecret");
-         twitter.setAccessToken("accessToken");
-         twitter.setAccessTokenSecret("accessTokenSecret");
-```
-Tweet
-```java
-twitter.tweet("Hello World");
-```
-Delete Tweet
-```java
-twitter.deleteTweet("your tweet id_str");
-```
-Search Tweet
-```java
-twitter.searchTweet("Hello");
-```
-Custom Search Tweet
-
-If you use optional param
-```java
-        TreeMap<String,String> keyMap = new TreeMap<>();
-        keyMap.put("ck","xxxxx");
-        keyMap.put("cks","xxxxx");
-        keyMap.put("ac","xxxxx");
-        keyMap.put("ats","xxxxx");
-
-
-        TreeMap<String,String> customSearch = new TreeMap<>();
-        customSearch.put("q","Hello");
-        customSearch.put("count","25");
-        customSearch.put("locale","ja");
-        customSearch.put("result_type","popular");
-
-        TwitterAPIRequests apiRequests = new TwitterAPIRequests();
-        apiRequests.searchStatus(customSearch,keyMap);
-```
-Get user Timeline
-```java
-twitter.getUserTimeLine(100); 
-```
-Get home Timeline
-```java
-twitter.getHomeTimeLine(100);
-```
-Get User Profile
-```java
-twitter.getUserProfile("screen_name");
-```
-
-## Json decode(this is optional mini function)
-```java
-String json = twitter.getHomeTimeLine(50);
-JsonDecoder.decode(json);
-```
+Please check ![wiki](https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java)
 
 # Contributing
 I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
