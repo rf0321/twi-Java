@@ -3,7 +3,7 @@ package twijava.client.requests;
 import twijava.client.TwitterApiURLs;
 import twijava.http.requests.TwitterGetTimeLineRequest;
 import twijava.http.requests.TwitterRelativeTweetRequest;
-
+import twijava.http.requests.TwitterSendDirectMessage;
 
 import java.util.TreeMap;
 
@@ -11,12 +11,20 @@ public class TwitterAPIRequests implements APIRequestInterface {
 
     @Override
     public TwitterGetTimeLineRequest twitterTimeLine(){
+
         return new TwitterGetTimeLineRequest();
     }
 
     @Override
     public TwitterRelativeTweetRequest twitterTweet(){
+
         return new TwitterRelativeTweetRequest();
+    }
+
+    @Override
+    public TwitterSendDirectMessage twitterDirectMessage(){
+
+        return new TwitterSendDirectMessage();
     }
 
     public String updateStatus(TreeMap<String,String> dataForPost, TreeMap<String,String>keyMap){
@@ -29,6 +37,16 @@ public class TwitterAPIRequests implements APIRequestInterface {
         String idStr = dataForPost.get("id");
 
         return twitterTweet().updateStatusRequest(TwitterApiURLs.USER_DESTROY_URL+idStr+".json",keyMap,dataForPost);
+    }
+
+    public String messageStatus(TreeMap<String,String>dataForPost,TreeMap<String,String>keyMap){
+
+        return twitterDirectMessage().sendDirectMessageRequest(TwitterApiURLs.USER_CREATEMESSAGE_URL,keyMap,dataForPost);
+    }
+
+    public String profileStatus(TreeMap<String,String>dataForGet, TreeMap<String,String>keyMap){
+
+        return twitterTimeLine().getStatusRequest(TwitterApiURLs.PROFILE_URL,keyMap,dataForGet);
     }
 
     public String homeStatus(TreeMap<String,String> dataForGet, TreeMap<String,String>keyMap) {
