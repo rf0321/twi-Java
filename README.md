@@ -33,6 +33,26 @@ Search Tweet
 ```java
 twitter.searchTweet("Hello");
 ```
+Custom Tweet
+
+If you use optional param
+```
+ TreeMap<String,String> keyMap = new TreeMap<>();
+        keyMap.put("ck",ck);
+        keyMap.put("cks",cks);
+        keyMap.put("ac",ac);
+        keyMap.put("ats",ats);
+
+
+        TreeMap<String,String> customSearch = new TreeMap<>();
+        customSearch.put("q","Hello");
+        customSearch.put("count","25");
+        customSearch.put("locale","ja");
+        customSearch.put("result_type","popular");
+
+        TwitterAPIRequests apiRequests = new TwitterAPIRequests();
+        apiRequests.searchStatus(customSearch,keyMap);
+```
 Get user Timeline
 ```java
 twitter.getUserTimeLine(100); 
