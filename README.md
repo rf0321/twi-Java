@@ -13,7 +13,7 @@ This wrapper's current java version is java8
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
 # Usage
-Please check ![wiki](https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java)
+Please check [![wiki](https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java)
 
 # Contributing
 I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
