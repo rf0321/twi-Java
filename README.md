@@ -61,6 +61,10 @@ Get home Timeline
 ```java
 twitter.getHomeTimeLine(100);
 ```
+Get User Profile
+```java
+twitter.getUserProfile("screen_name");
+```
 
 ## Json decode(this is optional mini function)
 ```java
