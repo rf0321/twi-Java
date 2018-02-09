@@ -15,12 +15,15 @@ This wrapper's current java version is java8
 # Usage
 Please check ![wiki](https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java)
 # Implemented urls
-* POST /1.1/statuses/update.json
-* POST /1.1/statuses/destroy/:id.json
-* GET /1.1/statuses/user_timeline.json
-* GET /1.1/statuses/home_timeline.json
-* GET /1.1/search/tweets.json
-* GET /1.1/users/show.json
+
+````
+POST /1.1/statuses/update.json
+POST /1.1/statuses/destroy/:id.json
+GET  /1.1/statuses/user_timeline.json
+GET  /1.1/statuses/home_timeline.json
+GET  /1.1/search/tweets.json
+GET  /1.1/users/show.json
+```
 # Contributing
 I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Donation
