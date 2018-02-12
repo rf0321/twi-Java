@@ -1,7 +1,9 @@
+# Twi-Java
 [![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=0109)](https://travis-ci.org/ItinoseSan/twi-Java)
  [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/0109/LICENCE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-# Twi-Java
+[![Maintainability](https://api.codeclimate.com/v1/badges/f8a837e1a163dc492596/maintainability)](https://codeclimate.com/github/ItinoseSan/twi-Java/maintainability)
+
 Twitter API wrapper for Java. 
 
 Main API wrapping is implemented by standard library. 
@@ -13,14 +15,19 @@ This wrapper's current java version is java8
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
 # Usage
-Please check ![wiki](https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java)
+https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java
 # Implemented urls
-* POST /1.1/statuses/update.json
-* POST /1.1/statuses/destroy/:id.json
-* GET /1.1/statuses/user_timeline.json
-* GET /1.1/statuses/home_timeline.json
-* GET /1.1/search/tweets.json
-* GET /1.1/users/show.json
+
+````
+POST /1.1/statuses/update.json
+POST /1.1/statuses/destroy/:id.json
+GET  /1.1/statuses/user_timeline.json
+GET  /1.1/statuses/home_timeline.json
+GET  /1.1/search/tweets.json
+GET  /1.1/users/show.json
+GET  /1.1/followers/list.json
+GET  /1.1/friend/list.json
+````
 # Contributing
 I welcome it. But if you pullrequest to this repository,you should write description of pullrequest content in English.
 # Donation
