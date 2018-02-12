@@ -1,7 +1,10 @@
+
+# Twi-Java
 [![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=0109)](https://travis-ci.org/ItinoseSan/twi-Java)
  [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/0109/LICENCE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-# Twi-Java
+[![Maintainability](https://api.codeclimate.com/v1/badges/f8a837e1a163dc492596/maintainability)](https://codeclimate.com/github/ItinoseSan/twi-Java/maintainability)
+
 Twitter API wrapper for Java. 
 
 Main API wrapping is implemented by standard library. 
