@@ -4,6 +4,7 @@ import java.util.*;
 public class OAuthParamFactory {
 
     public static String makeURLwithParam(String url,TreeMap<String,String>paramMap){
+
         StringBuffer strBuffer=new StringBuffer(url);
         TreeMap<String,String>treeMap=new TreeMap<>();
         treeMap.putAll(paramMap);

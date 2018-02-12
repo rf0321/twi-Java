@@ -1,11 +1,9 @@
 package twijava.http.core;
 
+import twijava.TwiJava;
+import twijava.url.TwitterApiURLs;
 import twijava.http.HttpResponseHandler;
-import twijava.oauth.OAuthHeaderFactory;
-import twijava.oauth.OAuthMapFactory;
-import twijava.oauth.OAuthParamFactory;
-import twijava.oauth.OAuthSignatureFactory;
-
+import twijava.oauth.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -14,18 +12,35 @@ import java.util.TreeMap;
 
 public class HttpRequest {
 
-    public String requestToAPI(String method, String url, TreeMap<String,String>data,TreeMap<String,String>keyMap){
+    public String requestToAPI(String method, String uri, TreeMap<String,String>data) {
 
         try {
+            TreeMap<String,String>keyMap = TwiJava.getApiKeysMap();
 
+            StringBuilder urlBuilder = new StringBuilder();
 
-            TreeMap<String, String> oauthMap = OAuthMapFactory.getOAuthMap(keyMap.get("ck"), keyMap.get("ac"));
+            String url = urlBuilder
+                    .append(TwitterApiURLs.END_POINT_URL)
+                    .append(uri).toString();
+
+            System.out.println("Request Url:"+url);
+
+            TreeMap<String, String> oauthMap = OAuthMapFactory.getOAuthMap(keyMap.get("ck"),keyMap.get("ac"));
 
             String signature = OAuthSignatureFactory.makeSignature(method, url, data, oauthMap);
-            String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap, keyMap.get("cks"), keyMap.get("ats"));
+            String oAuthHeader = OAuthHeaderFactory.makeOAuthHeader(signature, oauthMap,keyMap.get("cks"),keyMap.get("ats"));
             String urlWithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
             URL sendUrl = new URL(urlWithParam);
+            return sendParams(sendUrl,oAuthHeader,method);
+
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+    private String sendParams(URL sendUrl,String oAuthHeader,String method) {
+
+        try {
 
             HttpURLConnection urlConnection = (HttpURLConnection) sendUrl.openConnection();
 
@@ -35,8 +50,7 @@ public class HttpRequest {
 
             return HttpResponseHandler.receiveResponse(urlConnection);
 
-        }catch (Exception e){
-
+        } catch (Exception e) {
             return e.toString();
         }
     }

@@ -1,4 +1,4 @@
-package twijava.client;
+package twijava.url;
 
 /**
  * Request url of TwitterAPI
@@ -19,6 +19,10 @@ public class TwitterApiURLs {
     public static final String SEACH_URL             = ("search/tweets.json");
 
     public static final String PROFILE_URL           = ("users/show.json");
+
+    public static final String FOLLOWERS_URL         = ("followers/list.json");
+
+    public static final String FRIENDS_URL           = ("friends/list.json");
 
     public static final String USER_CREATEMESSAGE_URL= ("direct_messages/events/new.json");
 
