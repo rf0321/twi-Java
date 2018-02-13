@@ -1,8 +1,8 @@
 # Twi-Java
-[![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=0109)](https://travis-ci.org/ItinoseSan/twi-Java)
  [![LICENCE](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/ItinoseSan/Twi-Java/blob/0109/LICENCE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3c5aba0c8532ff256c50/maintainability)](https://codeclimate.com/github/ItinoseSan/twi-Java/maintainability)
+[![Build Status](https://travis-ci.org/ItinoseSan/twi-Java.svg?branch=0109)](https://travis-ci.org/ItinoseSan/twi-Java)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 Twitter API wrapper for Java
 
