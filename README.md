@@ -9,13 +9,96 @@ Twitter API wrapper for Java
 Main API wrapping is implemented by standard library. 
 
 Json Decoding is implmented by org.json.
+
 # Java Version
 This wrapper's current java version is java8
 # Installation
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
 # Usage
-https://github.com/ItinoseSan/twi-Java/wiki/Usage-of-twi-Java
+## Setup
+Input your twitter api tokens
+
+About detail of params that send to api, please check [API Reference](https://developer.twitter.com)
+```java
+ TwiJava twitter = new TwiJava();
+ twitter.setConsumerKey("consumerkey");
+ twitter.setConsumerSecretKey("consumerSecret");
+ twitter.setAccessToken("accessToken");
+ twitter.setAccessTokenSecret("accessTokenSecret");
+```
+## Tweet
+```java
+twitter.tweet("Hello World");
+```
+## Delete Tweet
+```java
+twitter.deleteTweet("your tweet id_str");
+```
+## Search Tweet
+```java
+twitter.searchTweet("Hello");
+```
+## Custom Search Tweet
+If you use optional param
+```java
+  TreeMap<String,String> customSearch = new TreeMap<>();
+  customSearch.put("q",ParamEncoder.encode("Hello"));
+  // Below is optional params
+  customSearch.put("count","25");
+  customSearch.put("locale","ja");
+  customSearch.put("result_type","popular");
+       
+  HttpRequest httpRequest = new HttpRequest();
+  httpRequest.requestToAPI("GET", TwitterApiURLs.SEACH_URL,param);
+```
+## Get User Timeline
+```java
+twitter.getUserTimeLine(100); 
+```
+## Get Home Timeline
+```java
+twitter.getHomeTimeLine(100);
+```
+## Get User Profile
+```java
+twitter.getUserProfile("screen_name");
+```
+## Get Follower List
+```java
+twitter.getFollowerList();
+```
+## Custom Get Follower List
+```java
+ TreeMap<String,String> param = new TreeMap<>();
+ param.put("cursor","-1");
+ // Below is optional params
+ param.put("screen_name","ItinoseVM");
+ param.put("count","30");
+
+ HttpRequest httpRequest = new HttpRequest();
+ httpRequest.requestToAPI("GET", TwitterApiURLs.FOLLOWERS_URL,param);
+```
+## Get Friend(Follow user) List
+```java
+twitter.getFriendList();
+```
+## Custom Get Friend List
+```java
+ TreeMap<String,String> param = new TreeMap<>();
+ param.put("cursor","-1");
+ // Below is optional params
+ param.put("screen_name","ItinoseVM");
+ param.put("count","30");
+
+ HttpRequest httpRequest = new HttpRequest();
+ httpRequest.requestToAPI("GET", TwitterApiURLs.FRIENDS_URL,param);
+``` 
+## Twitter time line Json decode(this is optional mini function)
+```java
+String json = twitter.getHomeTimeLine(50);
+JsonDecoder.decodeTimeLine(json);
+```
 # Implemented urls
 
 ````
