@@ -16,6 +16,6 @@ public class Tweet {
 
         HttpRequest httpRequest = new HttpRequest();
 
-        httpRequest.requestToAPI("POST",TwitterApiURLs.USER_UPDATESTATUS_URL,param);
+        httpRequest.post(TwitterApiURLs.USER_UPDATESTATUS_URL,param);
     }
 }

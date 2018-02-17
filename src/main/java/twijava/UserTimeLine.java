@@ -17,6 +17,6 @@ public class UserTimeLine {
 
         HttpRequest httpRequest = new HttpRequest();
 
-        return httpRequest.requestToAPI("GET", TwitterApiURLs.USER_TIMELINE_URL,param);
+        return httpRequest.get(TwitterApiURLs.USER_TIMELINE_URL,param);
     }
 }

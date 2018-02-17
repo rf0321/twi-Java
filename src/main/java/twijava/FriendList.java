@@ -14,6 +14,6 @@ public class FriendList {
 
         HttpRequest httpRequest = new HttpRequest();
 
-        return httpRequest.requestToAPI("GET", TwitterApiURLs.FRIENDS_URL,param);
+        return httpRequest.get(TwitterApiURLs.FRIENDS_URL,param);
     }
 }

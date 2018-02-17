@@ -15,6 +15,6 @@ public class SearchTweet {
 
         HttpRequest httpRequest = new HttpRequest();
 
-        return httpRequest.requestToAPI("GET", TwitterApiURLs.SEACH_URL,param);
+        return httpRequest.get(TwitterApiURLs.SEACH_URL,param);
     }
 }

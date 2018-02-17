@@ -16,6 +16,6 @@ public class DeleteTweet {
 
         String requestUri = TwitterApiURLs.USER_DESTROY_URL+idStr+".json";
 
-        httpRequest.requestToAPI("POST", requestUri, param);
+        httpRequest.post(requestUri, param);
     }
 }
