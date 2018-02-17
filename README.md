@@ -22,10 +22,7 @@ Input your twitter api tokens
 About detail of params that send to api, please check [API Reference](https://developer.twitter.com)
 ```java
  TwiJava twitter = new TwiJava();
- twitter.setConsumerKey("consumerkey");
- twitter.setConsumerSecretKey("consumerSecret");
- twitter.setAccessToken("accessToken");
- twitter.setAccessTokenSecret("accessTokenSecret");
+ twitter.authorize("consumerKey","consumerSecretKey","accessToken","accessTokenSecret");
 ```
 ## Tweet
 ```java
@@ -50,7 +47,7 @@ If you use optional param
   customSearch.put("result_type","popular");
        
   HttpRequest httpRequest = new HttpRequest();
-  httpRequest.requestToAPI("GET", TwitterApiURLs.SEACH_URL,param);
+  httpRequest.get(TwitterApiURLs.SEACH_URL,param);
 ```
 ## Get User Timeline
 ```java
@@ -77,7 +74,7 @@ twitter.getFollowerList();
  param.put("count","30");
 
  HttpRequest httpRequest = new HttpRequest();
- httpRequest.requestToAPI("GET", TwitterApiURLs.FOLLOWERS_URL,param);
+ httpRequest.get(TwitterApiURLs.FOLLOWERS_URL,param);
 ```
 ## Get Friend(Follow user) List
 ```java
@@ -92,7 +89,7 @@ twitter.getFriendList();
  param.put("count","30");
 
  HttpRequest httpRequest = new HttpRequest();
- httpRequest.requestToAPI("GET", TwitterApiURLs.FRIENDS_URL,param);
+ httpRequest.get(TwitterApiURLs.FRIENDS_URL,param);
 ``` 
 ## Twitter time line Json decode(this is optional mini function)
 ```java
