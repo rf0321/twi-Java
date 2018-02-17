@@ -14,6 +14,6 @@ public class FollowerList {
 
         HttpRequest httpRequest = new HttpRequest();
 
-        return httpRequest.requestToAPI("GET", TwitterApiURLs.FOLLOWERS_URL,param);
+        return httpRequest.get(TwitterApiURLs.FOLLOWERS_URL,param);
     }
 }

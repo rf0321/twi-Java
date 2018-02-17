@@ -14,6 +14,6 @@ public class UserProfile {
 
         HttpRequest httpRequest = new HttpRequest();
 
-        return httpRequest.requestToAPI("GET", TwitterApiURLs.PROFILE_URL,param);
+        return httpRequest.get(TwitterApiURLs.PROFILE_URL,param);
     }
 }

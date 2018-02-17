@@ -1,6 +1,6 @@
 package twijava.http.core;
 
-import twijava.TwiJava;
+import twijava.APIKeyFactory;
 import twijava.url.TwitterApiURLs;
 import twijava.http.HttpResponseHandler;
 import twijava.oauth.*;
@@ -12,10 +12,18 @@ import java.util.TreeMap;
 
 public class HttpRequest {
 
-    public String requestToAPI(String method, String uri, TreeMap<String,String>data) {
+    public String get(String uri,TreeMap<String,String>data){
+        return makeSendParam("GET",uri,data);
+    }
+
+    public String post(String uri,TreeMap<String,String>data){
+        return makeSendParam("POST",uri,data);
+    }
+
+    private String makeSendParam(String method, String uri, TreeMap<String,String>data) {
 
         try {
-            TreeMap<String,String>keyMap = TwiJava.getApiKeysMap();
+            TreeMap<String,String>keyMap = APIKeyFactory.apiKeyMap();
 
             StringBuilder urlBuilder = new StringBuilder();
 
@@ -32,13 +40,14 @@ public class HttpRequest {
             String urlWithParam = OAuthParamFactory.makeURLwithParam(url, data);
 
             URL sendUrl = new URL(urlWithParam);
-            return sendParams(sendUrl,oAuthHeader,method);
+            return sendRequest(sendUrl,oAuthHeader,method);
 
         } catch (Exception e) {
             return e.toString();
         }
     }
-    private String sendParams(URL sendUrl,String oAuthHeader,String method) {
+
+    private String sendRequest(URL sendUrl,String oAuthHeader,String method) {
 
         try {
 
