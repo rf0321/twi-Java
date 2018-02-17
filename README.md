@@ -21,7 +21,7 @@ About detail of params that send to api, please check [API Reference](https://de
 ```java
  TwiJava twitter = new TwiJava();
 ```
-## Authentication in API keys
+## Authentication in API keys(Required method)
 ```java
 twitter.authorize("consumerKey","consumerSecretKey","accessToken","accessTokenSecret");
 ```
