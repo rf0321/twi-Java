@@ -16,13 +16,14 @@ This wrapper's current java version is java8
 ### 1.Download Twi-Java.jar 
 ### 2.Add as Library the jar
 # Usage
-## Setup
-Input your twitter api tokens
-
 About detail of params that send to api, please check [API Reference](https://developer.twitter.com)
+## Get Instance
 ```java
  TwiJava twitter = new TwiJava();
- twitter.authorize("consumerKey","consumerSecretKey","accessToken","accessTokenSecret");
+```
+## Authentication in API keys
+```java
+twitter.authorize("consumerKey","consumerSecretKey","accessToken","accessTokenSecret");
 ```
 ## Tweet
 ```java
