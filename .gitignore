@@ -8,3 +8,5 @@ build/
 Main.java
 /.idea
 /out
+# VScode ignore extension
+/.vscode

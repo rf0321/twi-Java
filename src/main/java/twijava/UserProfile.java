@@ -7,10 +7,10 @@ import java.util.TreeMap;
 
 public class UserProfile {
 
-    public String getProfileRequest(String screen_name){
+    public String getProfileRequest(String screenName){
 
         TreeMap<String,String>param = new TreeMap<>();
-        param.put("screen_name",screen_name);
+        param.put("screen_name",screenName);
 
         HttpRequest httpRequest = new HttpRequest();
 
