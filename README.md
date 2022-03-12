@@ -71,7 +71,7 @@ twitter.getFollowerList();
  TreeMap<String,String> param = new TreeMap<>();
  param.put("cursor","-1");
  // Below is optional params
- param.put("screen_name","ItinoseVM");
+ param.put("screen_name","twitter's @id");
  param.put("count","30");
 
  HttpRequest httpRequest = new HttpRequest();
@@ -86,7 +86,7 @@ twitter.getFriendList();
  TreeMap<String,String> param = new TreeMap<>();
  param.put("cursor","-1");
  // Below is optional params
- param.put("screen_name","ItinoseVM");
+ param.put("screen_name","twitter's @id");
  param.put("count","30");
 
  HttpRequest httpRequest = new HttpRequest();
@@ -115,7 +115,7 @@ I welcome it. But if you pullrequest to this repository,you should write descrip
 ```
 MIT License
 
-Copyright (c) [2017] ItinoseSan
+Copyright (c) [2017] R.F
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -135,5 +135,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-# Ask me
-If you have some question or advice and so on, Please contact my [Twitter](https://twitter.com/ItinoseVM) or open issue this repository. Im waiting;)
