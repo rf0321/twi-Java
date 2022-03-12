@@ -115,7 +115,7 @@ I welcome it. But if you pullrequest to this repository,you should write descrip
 ```
 MIT License
 
-Copyright (c) [2017] R.F
+Copyright (c) [2017] ItinoseSan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
